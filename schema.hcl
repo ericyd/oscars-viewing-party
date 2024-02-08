@@ -72,6 +72,11 @@ table "categories" {
     null = false
     type = text
   }
+  // things like "Sound", "Writing", "Acting"
+  column "meta_category" {
+    null = true
+    type = text
+  }
   primary_key {
     columns = [column.id]
   }
@@ -83,7 +88,13 @@ table "nominees" {
     null = false
     type = bigserial
   }
-  column "name" {
+  // the human name, e.g. "Eric"
+  column "human" {
+    null = false
+    type = text
+  }
+  // typically the film, but sometimes the song, e.g. "Transformers"
+  column "piece" {
     null = false
     type = text
   }
