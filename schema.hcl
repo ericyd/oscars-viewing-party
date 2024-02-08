@@ -68,7 +68,7 @@ table "categories" {
     // Seems weird that Atlas doesn't support standard auto-incrementing integers in postgres, but whatevs, this works.
     type = bigserial
   }
-  column "name" {
+  column "category" {
     null = false
     type = text
   }
@@ -89,12 +89,12 @@ table "nominees" {
     type = bigserial
   }
   // the human name, e.g. "Eric"
-  column "human" {
+  column "nominee" {
     null = false
     type = text
   }
   // typically the film, but sometimes the song, e.g. "Transformers"
-  column "piece" {
+  column "artwork" {
     null = false
     type = text
   }
