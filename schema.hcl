@@ -6,8 +6,8 @@ table "categories" {
   schema = schema.public
   column "id" {
     null = false
-    # https://atlasgo.io/guides/postgres/serial-columns
-    # Seems weird that Atlas doesn't support standard auto-incrementing integers in postgres, but whatevs, this works.
+    // https://atlasgo.io/guides/postgres/serial-columns
+    // Seems weird that Atlas doesn't support standard auto-incrementing integers in postgres, but whatevs, this works.
     type = bigserial
   }
   column "name" {
@@ -33,7 +33,7 @@ table "nominees" {
     null = false
     type = bigint
   }
-  # normally wouldn't codify a foreign key but doing so to try to use PostgREST
+  // normally wouldn't codify a foreign key but doing so to try to use PostgREST
   foreign_key "category_id" {
     columns     = [column.category_id]
     ref_columns = [table.categories.column.id]
@@ -81,8 +81,8 @@ table "users" {
     null = false
     type = text
   }
-  # this can be set by the user to whatever they want.
-  # It is never displayed, it is kind of like a password, but obviously not secure.
+  // this can be set by the user to whatever they want.
+  // It is never displayed, it is kind of like a password, but obviously not secure.
   column "username" {
     null = false
     type = text
