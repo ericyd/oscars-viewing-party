@@ -64,7 +64,7 @@ table "rooms" {
   schema = schema.public
   column "id" {
     null = false
-    type = bigserial
+    type = text
   }
   primary_key {
     columns = [column.id]
@@ -89,7 +89,7 @@ table "users" {
   }
   column "room_id" {
     null = false
-    type = bigint
+    type = text
   }
   foreign_key "room_id" {
     columns     = [column.room_id]
