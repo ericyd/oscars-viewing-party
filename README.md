@@ -11,11 +11,14 @@ An experiment to see if I can make a quick/easy voting app.
 ## Development
 
 ```shell
+cp .env.sample .env
 # start DB
 docker-compose up -d
 # apply DB migration
 # If you don't want to use Atlas, just run the SQL file from the migrations directory
 atlas schema apply --env local
+# insert the categories
+atlas migrate apply --env local --baseline 20240208014006
 # install node dependencies
 npm ci
 ```
@@ -29,21 +32,15 @@ If you don't want to use Atlas, just exec into the DB container and run SQL comm
 ```shell
 docker exec -it db psql -U postgres -d local
 ```
+- Inspect schema: `atlas schema inspect --env local > schema.hcl`
+- Apply schema changes: `atlas schema apply --env local`
+- Generate SQL: `atlas migrate diff full_schema --env local`
+- Apply "insert" migrations: `atlas migrate apply --env local --baseline 20240208014006`
+- Add new migration file: `atlas migrate new` (after adding SQL, run `atlas migrate hash` to rehash)
+- Drop the DB and restart: `docker-compose down -v`
 
-### Inspect schema
+---
 
-```
-atlas schema inspect --env local > schema.hcl
-```
+TODO
 
-### Apply schema changes
-
-```
-atlas schema apply --env local
-```
-
-### Generate SQL
-
-```
-atlas migrate diff full_schema --env local
-```
+1. write insert script for all this shit: https://abc.com/shows/oscars/news/nominations/oscar-nominations-2024-list
