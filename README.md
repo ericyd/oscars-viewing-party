@@ -6,6 +6,7 @@ An experiment to see if I can make a quick/easy voting app.
 
 * [Docker](https://www.docker.com/) (and docker-compose)
 * [Atlas](https://atlasgo.io/)
+* [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
 
 ## Development
 
@@ -15,6 +16,8 @@ docker-compose up -d
 # apply DB migration
 # If you don't want to use Atlas, just run the SQL file from the migrations directory
 atlas schema apply --env local
+# install node dependencies
+npm ci
 ```
 
 ## Database
