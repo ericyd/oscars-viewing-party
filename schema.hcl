@@ -182,6 +182,11 @@ table "users" {
     columns        = [column.name, column.room_id]
     nulls_distinct = false
   }
+  index "index_unique_room_id_username" {
+    unique         = true
+    columns        = [column.username, column.room_id]
+    nulls_distinct = false
+  }
   primary_key {
     columns = [column.id]
   }

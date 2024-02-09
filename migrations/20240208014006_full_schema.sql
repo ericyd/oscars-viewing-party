@@ -12,6 +12,8 @@ CREATE TABLE "rooms" ("id" text NOT NULL, PRIMARY KEY ("id"));
 CREATE TABLE "users" ("id" bigserial NOT NULL, "name" text NOT NULL, "username" text NOT NULL, "room_id" text NOT NULL, "admin" boolean NOT NULL DEFAULT false, "year" integer NOT NULL DEFAULT 2024, PRIMARY KEY ("id"), CONSTRAINT "room_id" FOREIGN KEY ("room_id") REFERENCES "rooms" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);
 -- Create index "index_unique_room_id_name" to table: "users"
 CREATE UNIQUE INDEX "index_unique_room_id_name" ON "users" ("name", "room_id") NULLS NOT DISTINCT;
+-- Create index "index_unique_room_id_username" to table: "users"
+CREATE UNIQUE INDEX "index_unique_room_id_username" ON "users" ("username", "room_id") NULLS NOT DISTINCT;
 -- Create "votes" table
 CREATE TABLE "votes" ("id" bigserial NOT NULL, "user_id" bigint NOT NULL, "nominee_id" bigint NOT NULL, "category_id" bigint NOT NULL, PRIMARY KEY ("id"), CONSTRAINT "category_id" FOREIGN KEY ("category_id") REFERENCES "categories" ("id") ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT "nominee_id" FOREIGN KEY ("nominee_id") REFERENCES "nominees" ("id") ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT "user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);
 -- Create index "index_unique_user_id_category_id" to table: "votes"
