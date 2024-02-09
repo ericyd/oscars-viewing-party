@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Room {{ roomId }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Welcome to room {{ roomId }}{{#name}}, {{name}}{{/name}}</h1>
+    <br>
+    {{#error}}
+    <p class="error">{{ error }}</p>
+    {{/error}}
+    {{^userId}}
+    <form method="post" action="/room/{{ roomId }}/join">
+      <label>
+        Display name
+        <input type="text" name="name" id="displayName">
+      </label>
+      <label>
+        Username (use something identifiable to you)
+        <input type="text" name="username" id="username">
+      </label>
+      <button type="submit">Join room</button>
+    </form>
+    {{/userId}}
+
+    {{#userId}}
+    <a href="/vote/2024" class="button">Vote for your Oscars picks</a>
+    {{/userId}}
+
+    <ul class="people">
+      {{#people}}
+        <li>{{name}}</li>
+      {{/people}}
+    </ul>
+  </body>
+</html>
