@@ -54,6 +54,8 @@ ul.people li {
   background: var(--gray);
   color: var(--white);
   text-decoration: none;
+  border: 0;
+  cursor: pointer;
 }
 
 @supports (color-scheme: dark light) {
