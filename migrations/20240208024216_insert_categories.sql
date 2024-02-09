@@ -348,11 +348,11 @@ with documentary_short as (
 )
 
 insert into nominees (nominee, artwork, category_id, year) values
-  ('Sheila Nevins and Trish Adlesic', 'THE ABCS OF BOOK BANNING', (select id from documentary_short), 2024),
-  ('John Hoffman and Christine Turner', 'THE BARBER OF LITTLE ROCK', (select id from documentary_short), 2024),
-  ('S. Leo Chiang and Jean Tsien', 'ISLAND IN BETWEEN', (select id from documentary_short), 2024),
-  ('Ben Proudfoot and Kris Bowers', 'THE LAST REPAIR SHOP', (select id from documentary_short), 2024),
-  ('Sean Wang and Sam Davis', 'NǎI NAI & WàI Pó', (select id from documentary_short), 2024)
+  ('Sheila Nevins and Trish Adlesic', 'The Abcs Of Book Banning', (select id from documentary_short), 2024),
+  ('John Hoffman and Christine Turner', 'The Barber Of Little Rock', (select id from documentary_short), 2024),
+  ('S. Leo Chiang and Jean Tsien', 'Island In Between', (select id from documentary_short), 2024),
+  ('Ben Proudfoot and Kris Bowers', 'The Last Repair Shop', (select id from documentary_short), 2024),
+  ('Sean Wang and Sam Davis', 'Nǎi Nai & Wài Pó', (select id from documentary_short), 2024)
 ;
 
 /*
@@ -515,11 +515,11 @@ with original_song as (
 )
 
 insert into nominees (nominee, artwork, category_id, year) values
-  ('Diane Warren', '"The Fire Inside" from FLAMIN'' HOT', (select id from original_song), 2024),
-  ('Mark Ronson and Andrew Wyatt', '"I''m Just Ken" from BARBIE', (select id from original_song), 2024),
-  ('Jon Batiste and Dan Wilson', '"It Never Went Away" from AMERICAN SYMPHONY', (select id from original_song), 2024),
-  ('Scott George', '"Wahzhazhe (A Song For My People)" from KILLERS OF THE FLOWER MOON', (select id from original_song), 2024),
-  ('Billie Eilish and Finneas O''Connell', '"What Was I Made For?" from BARBIE', (select id from original_song), 2024)
+  ('Diane Warren', '"The Fire Inside" from Flamin'' Hot', (select id from original_song), 2024),
+  ('Mark Ronson and Andrew Wyatt', '"I''m Just Ken" from Barbie', (select id from original_song), 2024),
+  ('Jon Batiste and Dan Wilson', '"It Never Went Away" from American Symphony', (select id from original_song), 2024),
+  ('Scott George', '"Wahzhazhe (A Song For My People)" from Killers Of The Flower Moon', (select id from original_song), 2024),
+  ('Billie Eilish and Finneas O''Connell', '"What Was I Made For?" from Barbie', (select id from original_song), 2024)
 ;
 
 /*
@@ -582,11 +582,11 @@ with animated_short as (
 )
 
 insert into nominees (nominee, artwork, category_id, year) values
-  ('Tal Kantor and Amit R. Gicelter', 'LETTER TO A PIG', (select id from animated_short), 2024),
-  ('Jerusha Hess and Jared Hess', 'NINETY-FIVE SENSES', (select id from animated_short), 2024),
-  ('Yegane Moghaddam', 'OUR UNIFORM', (select id from animated_short), 2024),
-  ('Stéphanie Clément and Marc Rius', 'PACHYDERME', (select id from animated_short), 2024),
-  ('Dave Mullins and Brad Booker', 'WAR IS OVER! INSPIRED BY THE MUSIC OF JOHN & YOKO', (select id from animated_short), 2024)
+  ('Tal Kantor and Amit R. Gicelter', 'Letter To A Pig', (select id from animated_short), 2024),
+  ('Jerusha Hess and Jared Hess', 'Ninety-Five Senses', (select id from animated_short), 2024),
+  ('Yegane Moghaddam', 'Our Uniform', (select id from animated_short), 2024),
+  ('Stéphanie Clément and Marc Rius', 'Pachyderme', (select id from animated_short), 2024),
+  ('Dave Mullins and Brad Booker', 'War Is Over! Inspired By The Music Of John & Yoko', (select id from animated_short), 2024)
 ;
 
 /*
