@@ -27,11 +27,7 @@ npm ci
 
 Use Atlas to manage the DB.
 
-If you don't want to use Atlas, just exec into the DB container and run SQL commands:
-
-```shell
-docker exec -it db psql -U postgres -d local
-```
+- Exec into the DB container: `docker exec -it db psql -U postgres -d local`
 - Inspect schema: `atlas schema inspect --env local > schema.hcl`
 - Apply schema changes: `atlas schema apply --env local`
 - Generate SQL: `atlas migrate diff full_schema --env local`

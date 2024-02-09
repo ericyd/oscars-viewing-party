@@ -1,13 +1,15 @@
+-- Create "atlas_schema_revisions" table
+CREATE TABLE "atlas_schema_revisions" ("version" character varying NOT NULL, "description" character varying NOT NULL, "type" bigint NOT NULL DEFAULT 2, "applied" bigint NOT NULL DEFAULT 0, "total" bigint NOT NULL DEFAULT 0, "executed_at" timestamptz NOT NULL, "execution_time" bigint NOT NULL, "error" text NULL, "error_stmt" text NULL, "hash" character varying NOT NULL, "partial_hashes" jsonb NULL, "operator_version" character varying NOT NULL, PRIMARY KEY ("version"));
 -- Create "categories" table
-CREATE TABLE "categories" ("id" bigserial NOT NULL, "name" text NOT NULL, PRIMARY KEY ("id"));
+CREATE TABLE "categories" ("id" bigserial NOT NULL, "category" text NOT NULL, "meta_category" text NULL, PRIMARY KEY ("id"));
 -- Create "nominees" table
-CREATE TABLE "nominees" ("id" bigserial NOT NULL, "name" text NOT NULL, "category_id" bigint NOT NULL, "winner" boolean NOT NULL DEFAULT false, "year" integer NOT NULL DEFAULT 2024, PRIMARY KEY ("id"), CONSTRAINT "category_id" FOREIGN KEY ("category_id") REFERENCES "categories" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);
+CREATE TABLE "nominees" ("id" bigserial NOT NULL, "nominee" text NOT NULL, "artwork" text NOT NULL, "category_id" bigint NOT NULL, "winner" boolean NOT NULL DEFAULT false, "year" integer NOT NULL DEFAULT 2024, PRIMARY KEY ("id"), CONSTRAINT "category_id" FOREIGN KEY ("category_id") REFERENCES "categories" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);
 -- Create index "index_unique_winner_year_category_id" to table: "nominees"
-CREATE UNIQUE INDEX "index_unique_winner_year_category_id" ON "nominees" ("winner", "year", "category_id") NULLS NOT DISTINCT;
+CREATE UNIQUE INDEX "index_unique_winner_year_category_id" ON "nominees" ("winner", "year", "category_id") NULLS NOT DISTINCT WHERE (winner = true);
 -- Create "rooms" table
-CREATE TABLE "rooms" ("id" bigserial NOT NULL, PRIMARY KEY ("id"));
+CREATE TABLE "rooms" ("id" text NOT NULL, PRIMARY KEY ("id"));
 -- Create "users" table
-CREATE TABLE "users" ("id" bigserial NOT NULL, "name" text NOT NULL, "username" text NOT NULL, "room_id" bigint NOT NULL, "admin" boolean NOT NULL DEFAULT false, "year" integer NOT NULL DEFAULT 2024, PRIMARY KEY ("id"), CONSTRAINT "room_id" FOREIGN KEY ("room_id") REFERENCES "rooms" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);
+CREATE TABLE "users" ("id" bigserial NOT NULL, "name" text NOT NULL, "username" text NOT NULL, "room_id" text NOT NULL, "admin" boolean NOT NULL DEFAULT false, "year" integer NOT NULL DEFAULT 2024, PRIMARY KEY ("id"), CONSTRAINT "room_id" FOREIGN KEY ("room_id") REFERENCES "rooms" ("id") ON UPDATE NO ACTION ON DELETE CASCADE);
 -- Create index "index_unique_room_id_name" to table: "users"
 CREATE UNIQUE INDEX "index_unique_room_id_name" ON "users" ("name", "room_id") NULLS NOT DISTINCT;
 -- Create "votes" table

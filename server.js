@@ -82,12 +82,12 @@ app.get('/nominees/:year', async (req, res) => {
     .from('categories')
     .join('nominees', 'nominees.category_id', '=', 'categories.id')
     .where({ 'nominees.year': req.params.year })
-  return res.status(200).json(nominees)
+  return res.status(200).json({ nominees: groupNominees(nominees) })
 })
 
 app.get('/categories', async (req, res) => {
   const categories = await db.select('*').from('categories')
-  return res.status(200).json(categories)
+  return res.status(200).json({ categories: groupCategories(categories) })
 })
 
 app.post('/vote', requireRoomId, async (req, res) => {
@@ -111,3 +111,48 @@ app.post('/vote', requireRoomId, async (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
 })
+
+function groupNominees(list) {
+  const groups = []
+  for (const nomination of list) {
+    const { meta_category, category, ...nominee } = nomination
+    const foundMetaCategory = groups.find(g => g.metaCategory === meta_category)
+    if (foundMetaCategory) {
+      const foundCategory = foundMetaCategory.categories.find(c => c.category === category)
+      if (foundCategory) {
+        foundCategory.nominees.push(nominee)
+      } else {
+        foundMetaCategory.categories.push({
+          category,
+          nominees: [nominee]
+        })
+      }
+    } else {
+      groups.push({
+        metaCategory: meta_category,
+        categories: [{
+          category: category,
+          nominees: [nominee]
+        }]
+      })
+    }
+  }
+  return groups
+}
+
+function groupCategories(list) {
+  const groups = []
+  for (const item of list) {
+    const { meta_category, ...category } = item
+    const foundMetaCategory = groups.find(g => g.metaCategory === meta_category)
+    if (foundMetaCategory) {
+      foundMetaCategory.categories.push(category)
+    } else {
+      groups.push({
+        metaCategory: meta_category,
+        categories: [category]
+      })
+    }
+  }
+  return groups
+}
