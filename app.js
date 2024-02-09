@@ -6,6 +6,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
+import cookieSession from 'cookie-session'
 
 import indexRouter from './routes/index.js'
 import apiRouter from './routes/api.js'
@@ -20,6 +21,13 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 
+app.use(cookieSession({
+  name: 'oscar-viewing-party',
+  keys: [process.env.SESSION_SECRET],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
