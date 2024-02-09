@@ -1,9 +1,71 @@
+:root {
+  --black: #18181b;
+  --gray: #4b5563;
+  --white: #f9fafb;
+  --off-white: #e9eaeb;
+  --link: royalblue;
+  --link-visited: hsl(261.0, 45%, 43%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* this makes 1rem = 10px; I don't have a handy link for reference 😢 */
+  font-size: 62.5%;
+}
+
 body {
-  padding: 50px;
-  font-size: 14px;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  padding: 0 1.5em;
+  font-size: 1.6em;
+  line-height: 1.45em;
+  font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
 }
 
 a {
   color: #00B7FF;
+}
+
+label {
+  display: block;
+  margin-bottom: 1em;
+}
+
+input[type=text] {
+  display: block;
+}
+
+ul.people {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.people li {
+  margin-bottom: 0.2em;
+}
+
+.button {
+  display: inline-block;
+  padding: 1em 2em;
+  border-radius: 2em;
+  background: var(--gray);
+  color: var(--white);
+  text-decoration: none;
+}
+
+@supports (color-scheme: dark light) {
+  @media screen and (prefers-color-scheme: dark) {
+    :root {
+      /* https://github.com/ericyd/loop-supreme/blob/bd22ed519dbf633d8ba67792f2fd6aa704d92f87/tailwind.config.js#L29-L31 */
+      --black: #f9fafb;
+      --white: #18181b;
+      --gray: #a1a1aa;
+      --off-white: #48484b;
+      --link: #9e9eff;
+      --link-visited: #d0adf0;
+    }
+  }
 }
