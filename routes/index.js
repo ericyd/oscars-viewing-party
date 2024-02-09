@@ -5,7 +5,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 router.get('/vote/:year', async (req, res, next) => {
@@ -38,12 +38,20 @@ router.get('/room/:roomId', async (req, res, next) => {
 });
 
 router.post('/room/:roomId/join', async (req, res, next) => {
+  const [existing] = await db.select('*').from('users').where({ name: req.body.name, username: req.body.username })
+
+  // if they have the same name AND username, let's just assume they are trying to get back in
+  // remember, this app is NOT secure, no passwords here!!!
+  if (existing) {
+    req.session.userId = existing.id
+    req.session.name = existing.name
+    return res.redirect(`/room/${req.params.roomId}`)
+  }
+
   try {
     const [person] = await db('users').returning('*').insert({ ...req.body, room_id: req.params.roomId })
     req.session.userId = person.id
     req.session.name = person.name
-    console.log(person.name)
-    // await new Promise((resolve, reject) => req.session.save(resolve))
     return res.redirect(`/room/${req.params.roomId}`)
   } catch (e) {
     if (e.message.includes('unique constraint')) {

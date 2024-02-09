@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ title }}</title>
+    <title>Oscars viewing party</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
+    <h1>Oscars Viewing Party!</h1>
     <form method="post" action="room">
-      <input type="text" name="roomId">
-      <button type="submit">Join room</button>
+      <label>
+        Join or create a room
+        <input type="text" name="roomId">
+      </label>
+      <button type="submit" class="button">Go!</button>
     </form>
   </body>
 </html>
