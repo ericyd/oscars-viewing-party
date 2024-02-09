@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vote for Oscars {{ year }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Vote</h1>
+    
+    <form>
+    {{#list}}
+      <h2>{{ metaCategory }}</h2>
+      {{#categories}}
+        <h3>{{ category }}</h3>
+        {{#nominees}}
+          <label>
+            <input type="radio" name="{{category}}"> {{ nominee }}, for {{ artwork }}
+          </label>
+        {{/nominees}}
+      {{/categories}}
+    {{/list}}
+    <button type="submit" class="button">Submit votes (this is final!)</button>
+    </form>
+
+  </body>
+</html>
