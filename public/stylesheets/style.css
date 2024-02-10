@@ -45,6 +45,14 @@ ul.people {
 
 ul.people li {
   margin-bottom: 0.2em;
+  font-weight: bold;
+  font-size: 1.6em;
+  line-height: 1.2em;
+}
+
+ul.people li a {
+  text-decoration: none;
+  color: var(--black);
 }
 
 .button {

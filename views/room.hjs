@@ -25,12 +25,12 @@
     {{/userId}}
 
     {{#userId}}
-    <a href="/vote/2024" class="button">Vote for your Oscars picks</a>
+    <a href="/predictions/2024" class="button">Vote for your Oscars picks</a>
     {{/userId}}
 
     <ul class="people">
       {{#people}}
-        <li>{{name}}</li>
+        <li><a href="/room/{{roomId}}/person/{{id}}">{{name}}</a></li>
       {{/people}}
     </ul>
   </body>

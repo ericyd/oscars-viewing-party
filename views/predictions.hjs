@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make predictions for Oscars {{ year }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Make your predictions</h1>
+    
+    <form method="post" action="/predictions/2024">
+    {{#list}}
+      <h2>{{ metaCategory }}</h2>
+      {{#categories}}
+        <h3>{{ category }}</h3>
+        {{#nominees}}
+          <label>
+            {{category_id}} {{nominee_id}}
+            <input type="radio" name="{{category_id}}" value="{{nominee_id}}"> {{ nominee }}, for {{ artwork }}
+          </label>
+        {{/nominees}}
+      {{/categories}}
+    {{/list}}
+    <button type="submit" class="button">Submit votes (this is final!)</button>
+    </form>
+
+  </body>
+</html>

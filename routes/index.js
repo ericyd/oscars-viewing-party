@@ -8,11 +8,6 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-router.get('/vote/:year', async (req, res, next) => {
-  const nominees = await getNominees(req.params.year)
-  res.render('vote', { year: req.params.year, list: nominees });
-});
-
 router.post('/room', async (req, res) => {
   const roomId = req.body.roomId.replace(/[^a-zA-Z0-9]/g, '-')
   if (!roomId) {
@@ -27,6 +22,7 @@ router.post('/room', async (req, res) => {
 });
 
 router.get('/room/:roomId', async (req, res, next) => {
+  req.session.roomId = req.params.roomId
   res
     .render('room', {
       roomId: req.params.roomId,
@@ -65,5 +61,30 @@ router.post('/room/:roomId/join', async (req, res, next) => {
 async function getPeople(roomId) {
   return db.select('*').from('users').where({ room_id: roomId })
 }
+
+router.get('/room/:roomId/person/:userId', async (req, res, next) => {
+  // TODO: this is close, but not left joining the way I'd expect.
+  // Also it should be structured like the "groupNominees" query
+  const data = await db
+    .select(
+      '*',
+      'predictions.id as prediction_id'
+    )
+    .from('nominees')
+    .join('categories', 'categories.id', '=', 'nominees.category_id')
+    .leftJoin('predictions', 'predictions.nominee_id', '=', 'nominees.id')
+    .join('users', 'users.id', '=', 'predictions.user_id')
+    .where({
+      'predictions.user_id': req.params.userId,
+    })
+  const [user] = await db.select('*').from('users').where({ id: req.params.userId })
+  console.log(data, user)
+  res
+    .render('person', {
+      roomId: req.params.roomId,
+      person: user.name /** todo: get person with votes */,
+      list: data
+    });
+});
 
 export default router;
