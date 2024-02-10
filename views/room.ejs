@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Room <%= roomId %></title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1" />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,700;1,700&display=swap" rel="stylesheet"> -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Welcome to room <%= roomId %><% if (name) { %>, <%= name %><% } %></h1>
+    <div class="margin-bottom">
+      <% if (error) { %>
+        <p class="error"><%= error %></p>
+      <% } %>
+      <% if (userId) { %>
+        <a href="/predictions/2024" class="button">My Predictions</a>
+      <% } else { %>
+        <form method="post" action="/room/<%= roomId %>/join">
+          <label>
+            Display name
+            <input type="text" name="name" id="displayName">
+          </label>
+          <label class="margin-bottom">
+            Username (use something identifiable to you)
+            <input type="text" name="username" id="username">
+          </label>
+          <button type="submit">Join room</button>
+        </form>
+      <% } %>
+    </div>
+
+    <div>
+      (click someone's name to see their predictions)
+    </div>
+
+    <ul class="people">
+      <% for (const person of people) { %>
+        <li><a href="/room/<%= roomId %>/person/<%= person.id %>"><%= person.name %></a></li>
+      <% } %>
+    </ul>
+  </body>
+</html>

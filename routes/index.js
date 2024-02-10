@@ -1,6 +1,6 @@
 import express from 'express'
 import { db } from '../db/db.js'
-import { getNominees } from './queries.js';
+import { getNominees, groupNominees } from './queries.js';
 const router = express.Router();
 
 /* GET home page. */
@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 router.post('/room', async (req, res) => {
   const roomId = req.body.roomId.replace(/[^a-zA-Z0-9]/g, '-')
   if (!roomId) {
-    res.render('error', { message: 'you gotta include a room id' })
+    res.render('error', { message: 'Oops, you broke the damn thing', subheading: 'Try not to be so bad at this', error: null })
   }
 
   const [room] = await db.select('*').from('rooms').where({ id: roomId })
@@ -63,27 +63,40 @@ async function getPeople(roomId) {
 }
 
 router.get('/room/:roomId/person/:userId', async (req, res, next) => {
-  // TODO: this is close, but not left joining the way I'd expect.
-  // Also it should be structured like the "groupNominees" query
   const data = await db
     .select(
       '*',
-      'predictions.id as prediction_id'
+      'nominees.id as nominee_id',
+      'predictions.id as prediction_id',
+      'predictions.nominee_id as prediction_nominee_id',
     )
     .from('nominees')
-    .join('categories', 'categories.id', '=', 'nominees.category_id')
-    .leftJoin('predictions', 'predictions.nominee_id', '=', 'nominees.id')
-    .join('users', 'users.id', '=', 'predictions.user_id')
-    .where({
-      'predictions.user_id': req.params.userId,
+    .join('categories', 'categories.id', 'nominees.category_id')
+    .joinRaw(`
+      left join (
+        select id as winning_nominee_id, category_id
+        from nominees
+        where nominees.winner = true
+      ) as winners on winners.category_id = categories.id
+    `)
+    .leftJoin('predictions', function() {
+      this
+        .on('predictions.nominee_id', '=', 'nominees.id')
+        .andOn('predictions.user_id', '=', db.raw(req.params.userId))
+        .orOn(db.raw('predictions.user_id is null'))
     })
+  data.forEach(d => {
+    if ([112, '112', 113, '113'].includes(d.nominee_id)) {
+      console.log(d)
+    }
+  })
+
   const [user] = await db.select('*').from('users').where({ id: req.params.userId })
-  console.log(data, user)
   res
     .render('person', {
       roomId: req.params.roomId,
-      person: user.name /** todo: get person with votes */,
-      list: data
+      person: user.name,
+      list: groupNominees(data)
     });
 });
 

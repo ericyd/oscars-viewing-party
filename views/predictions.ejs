@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make predictions for Oscars <%= year %></title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1" />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,700;1,700&display=swap" rel="stylesheet"> -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Make your predictions</h1>
+    
+    <form method="post" action="/predictions/2024">
+    <% for (const item of list) { %>
+      <h2 class="meta-category"><%= item.metaCategory %></h2>
+      <% for (const c of item.categories) { %>
+        <h3><%= c.category %></h3>
+        <% for (const n of c.nominees) { %>
+          <div class="flex margin-bottom">
+            <div class="width-2 flex items-center">
+              <input
+                type="radio"
+                name="<%= n.category_id %>"
+                value="<%= n.nominee_id %>"
+                id="<%= n.category_id %>_<%= n.nominee_id %>"
+                <% if (n.prediction_nominee_id === n.nominee_id) { %>
+                  checked="checked"
+                <% } %>
+              >
+            </div>
+            <div class="flex items-center max-width-80">
+              <label for="<%= n.category_id %>_<%= n.nominee_id %>">
+                 <%= n.nominee %>
+                 <br>
+                 <em><%= n.artwork %></em>
+              </label>
+            </div>
+          </div>
+        <% } %>
+      <% } %>
+    <% } %>
+    <button type="submit">Submit predictions</button>
+    </form>
+
+  </body>
+</html>

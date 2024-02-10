@@ -22,20 +22,63 @@ body {
   padding: 0 1.5em;
   font-size: 1.6em;
   line-height: 1.45em;
-  font-family: Helvetica, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, ul.people {
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 700;
+  line-height: 1.2em;
 }
 
 a {
   color: #00B7FF;
 }
 
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.width-2 {
+  width: 2em;
+}
+
+.max-width-80 {
+  max-width: 80%;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.margin-bottom {
+  margin-bottom: 1em;
+}
+
 label {
   display: block;
-  margin-bottom: 1em;
 }
 
 input[type=text] {
   display: block;
+  font-size: 1.4em;
+  line-height: 1.4em;
+  padding: 0.25em 0.5em;
+  border-radius: 2em;
+  border: 1px solid var(--black);
+  margin-top: 0.25em;
+}
+
+.meta-category {
+  background: var(--gray);
+  color: var(--white);
+  margin: 0 -1.5em;
+  padding: 0.5em 1.5em;
+  line-height: 1.5em;
 }
 
 ul.people {
@@ -45,7 +88,6 @@ ul.people {
 
 ul.people li {
   margin-bottom: 0.2em;
-  font-weight: bold;
   font-size: 1.6em;
   line-height: 1.2em;
 }
@@ -55,7 +97,7 @@ ul.people li a {
   color: var(--black);
 }
 
-.button {
+button, .button {
   display: inline-block;
   padding: 1em 2em;
   border-radius: 2em;
