@@ -232,7 +232,7 @@ table "predictions" {
     on_delete   = CASCADE
   }
 
-  index "index_predictions_unique_user_id_category_id" {
+  index "index_unique_user_id_category_id" {
     unique         = true
     columns        = [column.user_id, column.category_id]
     nulls_distinct = false
