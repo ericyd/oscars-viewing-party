@@ -12,6 +12,7 @@ An experiment to see if I can make a quick/easy voting app.
 
 ```shell
 cp .env.sample .env
+cp atlas.hcl.sample atlas.hcl
 # start DB
 docker-compose up -d
 # apply DB migration
