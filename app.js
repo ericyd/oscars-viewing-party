@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import cookieSession from 'cookie-session'
 
-import indexRouter from './routes/index.js'
+import roomRouter from './routes/room.js'
 import apiRouter from './routes/api.js'
 import predictionsRouter from './routes/predictions.js'
 
@@ -34,9 +34,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.get('/', (req, res, next) => res.render('index'));
 app.use('/api', apiRouter);
 app.use('/predictions', predictionsRouter);
+app.use('/', roomRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

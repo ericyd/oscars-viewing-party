@@ -3,10 +3,6 @@ import { db } from '../db/db.js'
 import { groupNominees } from './queries.js';
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-  res.render('index');
-});
-
 router.post('/room', async (req, res) => {
   const roomId = req.body.roomId.replace(/[^a-zA-Z0-9]/g, '-')
   if (!roomId) {
