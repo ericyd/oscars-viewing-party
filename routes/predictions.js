@@ -4,35 +4,43 @@ import { groupNominees } from './queries.js';
 const router = express.Router();
 
 router.get('/:year', async (req, res, next) => {
-  const nominees = await db
-    .select(
-      'category',
-      'meta_category',
-      'nominees.id as nominee_id',
-      'categories.id as category_id',
-      'nominee',
-      'artwork',
-      'year',
-      'predictions.nominee_id as prediction_nominee_id'
-    )
-    .from('categories')
-    .join('nominees', 'nominees.category_id', '=', 'categories.id')
-    .leftJoin('predictions', function() {
-      this
-        .on('predictions.nominee_id', '=', 'nominees.id')
-        .andOn('predictions.user_id', '=', db.raw(req.session.userId))
-        .orOn(db.raw('predictions.user_id is null'))
-    })
-    .where({ 'nominees.year': req.params.year })
-    .andWhereRaw(`
-      nominees.category_id not in (
-        select category_id
-        from nominees
-        where winner = true
-        and year = ?
+  try {
+    const nominees = await db
+      .select(
+        'category',
+        'meta_category',
+        'nominees.id as nominee_id',
+        'categories.id as category_id',
+        'nominee',
+        'artwork',
+        'year',
+        'predictions.nominee_id as prediction_nominee_id'
       )
-    `, req.params.year)
-  res.render('predictions', { year: req.params.year, list: groupNominees(nominees) });
+      .from('categories')
+      .join('nominees', 'nominees.category_id', '=', 'categories.id')
+      .leftJoin('predictions', function() {
+        this
+          .on('predictions.nominee_id', '=', 'nominees.id')
+          .andOn('predictions.user_id', '=', db.raw(req.session.userId))
+          .orOn(db.raw('predictions.user_id is null'))
+      })
+      .where({ 'nominees.year': req.params.year })
+      .andWhereRaw(`
+        nominees.category_id not in (
+          select category_id
+          from nominees
+          where winner = true
+          and year = ?
+        )
+      `, req.params.year)
+    res.render('predictions', { year: req.params.year, list: groupNominees(nominees) });
+  } catch (e) {
+    res.render('error', {
+      error: e,
+      message: 'Great. Now I gotta go fix what you broke',
+      subheading: 'Thanks a lot'
+    })
+  }
 });
 
 /*

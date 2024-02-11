@@ -43,7 +43,7 @@ app.use('/', roomRouter);
 app.use(function(req, res, next) {
   const stacktrace = new Array(100).fill(0).map(() => 'not found').join('\n')
   res.render('error', {
-    message: 'What the hell were you thinking?',
+    message: 'What in the world were you thinking?',
     subheading: "Trying to visit this page, that DOESN'T EVEN EXIST",
     error: {
       status: 404,
