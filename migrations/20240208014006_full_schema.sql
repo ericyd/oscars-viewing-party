@@ -1,5 +1,3 @@
--- Create "atlas_schema_revisions" table
-CREATE TABLE "atlas_schema_revisions" ("version" character varying NOT NULL, "description" character varying NOT NULL, "type" bigint NOT NULL DEFAULT 2, "applied" bigint NOT NULL DEFAULT 0, "total" bigint NOT NULL DEFAULT 0, "executed_at" timestamptz NOT NULL, "execution_time" bigint NOT NULL, "error" text NULL, "error_stmt" text NULL, "hash" character varying NOT NULL, "partial_hashes" jsonb NULL, "operator_version" character varying NOT NULL, PRIMARY KEY ("version"));
 -- Create "categories" table
 CREATE TABLE "categories" ("id" serial NOT NULL, "category" text NOT NULL, "meta_category" text NULL, PRIMARY KEY ("id"));
 -- Create "nominees" table

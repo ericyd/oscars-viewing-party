@@ -15,10 +15,8 @@ cp .env.sample .env
 # start DB
 docker-compose up -d
 # apply DB migration
-# If you don't want to use Atlas, just run the SQL file from the migrations directory
-atlas schema apply --env local
-# insert the categories
-atlas migrate apply --env local --baseline 20240208014006
+# If you don't want to use Atlas, just run the SQL files from the migrations directory
+atlas migrate apply --env local
 # install node dependencies
 npm ci
 ```
