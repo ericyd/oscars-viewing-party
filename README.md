@@ -29,7 +29,7 @@ Use Atlas to manage the DB.
 - Inspect schema: `atlas schema inspect --env local > schema.hcl`
 - Apply schema changes: `atlas schema apply --env local`
 - Generate SQL: `atlas migrate diff full_schema --env local`
-- Apply "insert" migrations: `atlas migrate apply --env local --baseline 20240208014006`
+- Apply "insert" migrations: `atlas migrate apply --env local --baseline 20240208024216`
 - Add new migration file: `atlas migrate new` (after adding SQL, run `atlas migrate hash` to rehash)
 - Drop the DB and restart: `docker-compose down -v`
 

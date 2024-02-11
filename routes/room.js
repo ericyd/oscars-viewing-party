@@ -9,19 +9,7 @@ router.post('/room', async (req, res) => {
     res.render('error', { message: 'Oops, you broke the whole app', subheading: 'Try not to be so bad at this', error: null })
   }
 
-  try {
-    const [room] = await db.select('*').from('rooms').where({ id: roomId })
-    if (!room) {
-      await db('rooms').insert({ id: roomId })
-    }
-    return res.redirect(`/${roomId}`)
-  } catch (e) {
-    res.render('error', {
-      error: e,
-      message: "WHAT DID YOU DO?",
-      subheading: "AND WHY????!?!?!!?!!??"
-    })
-  }
+  return res.redirect(`/${roomId}`)
 });
 
 router.get('/:roomId', async (req, res, next) => {

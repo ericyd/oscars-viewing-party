@@ -72,17 +72,6 @@ table "nominees" {
   }
 }
 
-table "rooms" {
-  schema = schema.public
-  column "id" {
-    null = false
-    type = text
-  }
-  primary_key {
-    columns = [column.id]
-  }
-}
-
 table "users" {
   schema = schema.public
   column "id" {
@@ -102,12 +91,6 @@ table "users" {
   column "room_id" {
     null = false
     type = text
-  }
-  foreign_key "room_id" {
-    columns     = [column.room_id]
-    ref_columns = [table.rooms.column.id]
-    on_update   = NO_ACTION
-    on_delete   = CASCADE
   }
   column "admin" {
     null = false
