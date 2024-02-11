@@ -17,7 +17,7 @@
       <% if (userId) { %>
         <a href="/predictions/2024" class="button">My Predictions</a>
       <% } else { %>
-        <form method="post" action="/room/<%= roomId %>/join">
+        <form method="post" action="/<%= roomId %>/join">
           <label>
             Display name
             <input type="text" name="name" id="displayName">
@@ -38,7 +38,7 @@
     <ul class="people">
       <% for (const person of people) { %>
         <li>
-          <a href="/room/<%= roomId %>/person/<%= person.id %>"><%= person.name %>
+          <a href="/<%= roomId %>/person/<%= person.id %>"><%= person.name %>
             <br>
             <small><%= person.total_predictions %> predictions, <%= person.correct %> ✅, <%= person.wrong %> ❌, <%= person.undecided %> ⭕️</small>
           </a>

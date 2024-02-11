@@ -13,10 +13,10 @@ router.post('/room', async (req, res) => {
   if (!room) {
     await db('rooms').insert({ id: roomId })
   }
-  return res.redirect(`/room/${roomId}`)
+  return res.redirect(`/${roomId}`)
 });
 
-router.get('/room/:roomId', async (req, res, next) => {
+router.get('/:roomId', async (req, res, next) => {
   req.session.roomId = req.params.roomId
   try {
     const people = await db
@@ -78,7 +78,7 @@ router.get('/room/:roomId', async (req, res, next) => {
   }
 });
 
-router.post('/room/:roomId/join', async (req, res, next) => {
+router.post('/:roomId/join', async (req, res, next) => {
   const [existing] = await db.select('*').from('users').where({ name: req.body.name, username: req.body.username })
 
   // if they have the same name AND username, let's just assume they are trying to get back in
@@ -86,24 +86,24 @@ router.post('/room/:roomId/join', async (req, res, next) => {
   if (existing) {
     req.session.userId = existing.id
     req.session.name = existing.name
-    return res.redirect(`/room/${req.params.roomId}`)
+    return res.redirect(`/${req.params.roomId}`)
   }
 
   try {
     const [person] = await db('users').returning('*').insert({ ...req.body, room_id: req.params.roomId })
     req.session.userId = person.id
     req.session.name = person.name
-    return res.redirect(`/room/${req.params.roomId}`)
+    return res.redirect(`/${req.params.roomId}`)
   } catch (e) {
     if (e.message.includes('unique constraint')) {
-      return res.redirect(`/room/${req.params.roomId}?error=unique_conflict`)
+      return res.redirect(`/${req.params.roomId}?error=unique_conflict`)
     } else {
       throw e
     }
   }
 });
 
-router.get('/room/:roomId/person/:userId', async (req, res, next) => {
+router.get('/:roomId/person/:userId', async (req, res, next) => {
   const data = await db
     .select(
       '*',

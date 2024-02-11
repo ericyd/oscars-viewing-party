@@ -57,7 +57,7 @@ router.post('/:year', async (req, res, next) => {
     if (filteredPredctions.length > 0) {
       await db('predictions').insert(filteredPredctions).onConflict(['user_id', 'category_id']).merge()
     }
-    return res.redirect(`/room/${req.session.roomId}${error}`)
+    return res.redirect(`/${req.session.roomId}${error}`)
   } catch (e) {
     return res.render('error', { message: e.message, subheading: null, error: e })
   }
