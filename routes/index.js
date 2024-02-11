@@ -64,11 +64,16 @@ router.get('/room/:roomId', async (req, res, next) => {
       .leftJoin('predictions', 'predictions.user_id', '=', 'users.id')
       .where({ room_id: req.params.roomId })
       .groupBy('users.id', 'users.name')
+
+    const errors = {
+      unique_conflict: 'Looks like that name or username is already taken, please try again',
+      updating_after_decided: "Looks like you might be trying to cheat, and submit predictions after a decision has already been made! Don't worry, you other predictions were saved."
+    }
     res
       .render('room', {
         roomId: req.params.roomId,
         people,
-        error: req.query.error === 'unique_conflict' ? 'Looks like that name or username is already taken, please try again' : null,
+        error: errors[req.query?.error] ?? null,
         userId: req.session.userId,
         name: req.session.name
       });

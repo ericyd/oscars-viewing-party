@@ -1,10 +1,23 @@
 import express from 'express'
 import { db } from '../db/db.js';
-import { getNominees } from './queries.js';
+import { groupNominees } from './queries.js';
 const router = express.Router();
 
 router.get('/nominees/:year', async (req, res) => {
-  return res.status(200).json({ nominees: await getNominees(req.params.year) })
+  const nominees = await db
+    .select(
+      'category',
+      'meta_category',
+      'nominees.id as nominee_id',
+      'categories.id as category_id',
+      'nominee',
+      'artwork',
+      'year',
+    )
+    .from('categories')
+    .join('nominees', 'nominees.category_id', '=', 'categories.id')
+    .where({ 'nominees.year': req.params.year })
+  return res.status(200).json({ nominees: groupNominees(nominees) })
 });
 
 router.get('/categories', async (req, res) => {
