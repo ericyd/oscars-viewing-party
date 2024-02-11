@@ -39,9 +39,17 @@ app.use('/api', apiRouter);
 app.use('/predictions', predictionsRouter);
 app.use('/', roomRouter);
 
-// catch 404 and forward to error handler
+// catch 404
 app.use(function(req, res, next) {
-  next(createError(404));
+  const stacktrace = new Array(100).fill(0).map(() => 'not found').join('\n')
+  res.render('error', {
+    message: 'What the hell were you thinking?',
+    subheading: "Trying to visit this page, that DOESN'T EVEN EXIST",
+    error: {
+      status: 404,
+      stack: stacktrace
+    }
+  })
 });
 
 // error handler
