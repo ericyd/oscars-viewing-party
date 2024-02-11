@@ -101,6 +101,14 @@ ul.people li small {
   font-size: 0.6em;
 }
 
+.error {
+  /* this style doesn't change with dark mode; no need for vars */
+  background: #e89787;
+  color: #18181b;
+  padding: 0.2em;
+  border-radius: 0.2em;
+}
+
 button, .button {
   display: inline-block;
   padding: 1em 2em;
