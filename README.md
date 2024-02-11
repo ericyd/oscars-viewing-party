@@ -1,6 +1,10 @@
 # Oscars® Viewing Party
 
-An experiment to see if I can make a quick/easy voting app.
+An experiment to see if I can make a quick/easy app to store Oscars predictions. (Spoiler alert, I succeeded: https://oscars-viewing-party.onrender.com/)
+
+I was going to use Cloudflare workers but the query builder lib I am using, Knex, was throwing a weird error in the Cloudflare Workers runtime and I didn't care to debug it.
+
+This app is all about "good enough". It is not secure and that's fine. The whole point is just to make predictions for a silly awards ceremony and compare with your friends.
 
 ## Prerequisites
 
@@ -33,9 +37,3 @@ Use Atlas to manage the DB.
 - Apply "insert" migrations: `atlas migrate apply --env local --baseline 20240208024216`
 - Add new migration file: `atlas migrate new` (after adding SQL, run `atlas migrate hash` to rehash)
 - Drop the DB and restart: `docker-compose down -v`
-
----
-
-TODO
-
-1. write insert script for all this shit: https://abc.com/shows/oscars/news/nominations/oscar-nominations-2024-list
