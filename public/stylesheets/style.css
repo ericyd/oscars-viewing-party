@@ -97,6 +97,10 @@ ul.people li a {
   color: var(--black);
 }
 
+ul.people li small {
+  font-size: 0.6em;
+}
+
 button, .button {
   display: inline-block;
   padding: 1em 2em;

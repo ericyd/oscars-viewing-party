@@ -1,9 +1,8 @@
 import express from 'express'
 import { db } from '../db/db.js'
-import { getNominees, groupNominees } from './queries.js';
+import { groupNominees } from './queries.js';
 const router = express.Router();
 
-/* GET home page. */
 router.get('/', (req, res, next) => {
   res.render('index');
 });
@@ -23,14 +22,59 @@ router.post('/room', async (req, res) => {
 
 router.get('/room/:roomId', async (req, res, next) => {
   req.session.roomId = req.params.roomId
-  res
-    .render('room', {
-      roomId: req.params.roomId,
-      people: await getPeople(req.params.roomId),
-      error: req.query.error === 'unique_conflict' ? 'Looks like that name or username is already taken, please try again' : null,
-      userId: req.session.userId,
-      name: req.session.name
-    });
+  try {
+    const people = await db
+      .with(
+        'winners',
+        db.raw(`
+          select
+            winners.category_id,
+            winners.winning_nominee_id
+          from categories
+          left join (
+            select id as winning_nominee_id, category_id
+            from nominees
+            where nominees.winner = true
+          ) as winners on winners.category_id = categories.id
+        `)
+      )
+      .select(
+        'users.id',
+        'users.name',
+        db.raw(`count(predictions.*) as total_predictions`),
+        db.raw(`
+          count(*) filter (
+            where exists (select * from winners where winning_nominee_id = predictions.nominee_id)
+          ) as correct
+        `),
+        db.raw(`
+          count(*) filter (
+            where predictions.category_id is not null
+            and not exists (select * from winners where category_id = predictions.category_id)
+          ) as undecided
+        `),
+        db.raw(`
+          count(*) filter (
+            where exists (select * from winners where category_id = predictions.category_id)
+            and not exists (select * from winners where winning_nominee_id = predictions.nominee_id)
+          ) as wrong
+        `),
+      )
+      .from('users')
+      .leftJoin('predictions', 'predictions.user_id', '=', 'users.id')
+      .where({ room_id: req.params.roomId })
+      .groupBy('users.id', 'users.name')
+    res
+      .render('room', {
+        roomId: req.params.roomId,
+        people,
+        error: req.query.error === 'unique_conflict' ? 'Looks like that name or username is already taken, please try again' : null,
+        userId: req.session.userId,
+        name: req.session.name
+      });
+  } catch (e) {
+    res.render('error', { message: "Wow, you aren't very good at this", subheading: "Next time try not to break it", error: e })
+  }
 });
 
 router.post('/room/:roomId/join', async (req, res, next) => {
@@ -58,10 +102,6 @@ router.post('/room/:roomId/join', async (req, res, next) => {
   }
 });
 
-async function getPeople(roomId) {
-  return db.select('*').from('users').where({ room_id: roomId })
-}
-
 router.get('/room/:roomId/person/:userId', async (req, res, next) => {
   const data = await db
     .select(
@@ -85,11 +125,6 @@ router.get('/room/:roomId/person/:userId', async (req, res, next) => {
         .andOn('predictions.user_id', '=', db.raw(req.params.userId))
         .orOn(db.raw('predictions.user_id is null'))
     })
-  data.forEach(d => {
-    if ([112, '112', 113, '113'].includes(d.nominee_id)) {
-      console.log(d)
-    }
-  })
 
   const [user] = await db.select('*').from('users').where({ id: req.params.userId })
   res

@@ -37,7 +37,12 @@
 
     <ul class="people">
       <% for (const person of people) { %>
-        <li><a href="/room/<%= roomId %>/person/<%= person.id %>"><%= person.name %></a></li>
+        <li>
+          <a href="/room/<%= roomId %>/person/<%= person.id %>"><%= person.name %>
+            <br>
+            <small><%= person.total_predictions %> predictions, <%= person.correct %> ✅, <%= person.wrong %> ❌, <%= person.undecided %> ⭕️</small>
+          </a>
+        </li>
       <% } %>
     </ul>
   </body>
