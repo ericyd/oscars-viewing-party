@@ -11,6 +11,7 @@ This app is all about "good enough". It is not secure and that's fine. The whole
 * [Docker](https://www.docker.com/) (and docker-compose)
 * [Atlas](https://atlasgo.io/)
 * [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
+* [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional, but recommended)
 
 ## Development
 
@@ -30,10 +31,10 @@ npm ci
 
 Use Atlas to manage the DB.
 
-- Exec into the DB container: `docker exec -it db psql -U postgres -d local`
-- Inspect schema: `atlas schema inspect --env local > schema.hcl`
-- Apply schema changes: `atlas schema apply --env local`
-- Generate SQL: `atlas migrate diff full_schema --env local`
+- Exec into the DB container: `just psql`
+- Inspect schema: `just schema-inspect`
+- Apply schema changes: `just schema-apply`
+- Generate SQL: `just migrate-diff`
 - Apply "insert" migrations: `atlas migrate apply --env local --baseline 20240208024216`
 - Add new migration file: `atlas migrate new` (after adding SQL, run `atlas migrate hash` to rehash)
-- Drop the DB and restart: `docker-compose down -v`
+- Drop the DB and restart: `just down`
