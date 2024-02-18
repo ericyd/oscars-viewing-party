@@ -1,7 +1,7 @@
 import { dbQuery } from '../db.js';
 import { groupNominees } from '../util/group-nominees.js';
 
-export async function getAllNominees({ params }, env, _context, _data) {
+export async function getAllNominees({ params }, env, ctx, _data) {
   const { rows: nominees } = await dbQuery(env, 'SELECT * FROM nominees;');
 
   try {
@@ -18,7 +18,7 @@ export async function getAllNominees({ params }, env, _context, _data) {
       join nominees on nominees.category_id = categories.id
       where nominees.year = $1
     `;
-    const { rows: nominees } = await dbQuery(env, sql, [params.year]);
+    const { rows: nominees } = await dbQuery(env, ctx, sql, [params.year]);
     return Response.json({ nominees: groupNominees(nominees) });
   } catch (e) {
     console.error(e);

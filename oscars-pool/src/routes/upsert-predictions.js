@@ -1,4 +1,4 @@
-export async function upsertPredictions(req, env) {
+export async function upsertPredictions(req, env, ctx) {
   try {
     const year = req.params.year;
     const json = await req.json();
@@ -8,7 +8,7 @@ export async function upsertPredictions(req, env) {
       nominee_id,
     }));
 
-    const { rows: alreadyDecided } = await dbQuery(env, `select category_id from nominees where winner = true and year = $1`, [year]);
+    const { rows: alreadyDecided } = await dbQuery(env, ctx, `select category_id from nominees where winner = true and year = $1`, [year]);
     const filteredPredctions = predictions.filter((p) => !alreadyDecided.some((a) => String(a.category_id) === String(p.category_id)));
     const error = filteredPredctions.length !== predictions.length ? '?error=updating_after_decided' : '';
     if (filteredPredctions.length > 0) {

@@ -1,6 +1,6 @@
 import { dbQuery } from '../db.js';
 
-export async function getUserPredictions({ params }, env) {
+export async function getUserPredictions({ params }, env, ctx) {
   try {
     const sql = `
       select
@@ -23,7 +23,7 @@ export async function getUserPredictions({ params }, env) {
         )
       )
     `;
-    await dbQuery(env, sql, [params.userId]);
+    await dbQuery(env, ctx, sql, [params.userId]);
   } catch (e) {
     return Response.json(
       {

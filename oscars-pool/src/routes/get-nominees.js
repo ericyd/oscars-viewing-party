@@ -1,7 +1,7 @@
 import { dbQuery } from '../db.js';
 import { groupNominees } from '../util/group-nominees.js';
 
-export async function getNominees({ params, query }, env) {
+export async function getNominees({ params, query }, env, ctx) {
   try {
     const sql = `
       select
@@ -30,7 +30,7 @@ export async function getNominees({ params, query }, env) {
         and year = $2
       )
 `;
-    const { rows: nominees } = await dbQuery(env, sql, [query.userId ?? null, params.year]);
+    const { rows: nominees } = await dbQuery(env, ctx, sql, [query.userId ?? null, params.year]);
     return Response.json({ nominees: groupNominees(nominees) });
   } catch (e) {
     console.error(e);

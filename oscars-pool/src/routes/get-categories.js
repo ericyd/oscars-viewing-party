@@ -1,9 +1,9 @@
 import { dbQuery } from '../db';
 import { groupCategories } from '../util/group-categories';
 
-export async function getCategories(_request, env) {
+export async function getCategories(_request, env, ctx) {
   try {
-    const { rows: categories } = await dbQuery(env, 'select * from categories');
+    const { rows: categories } = await dbQuery(env, ctx, 'select * from categories');
     return Response.json({ categories: groupCategories(categories) });
   } catch (e) {
     console.error(e);

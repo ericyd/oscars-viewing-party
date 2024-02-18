@@ -1,6 +1,6 @@
 import { dbQuery } from '../db.js';
 
-export async function joinRoom(req, env) {
+export async function joinRoom(req, env, ctx) {
   const body = await req.json();
   const { rows: existing } = await dbQuery(
     env,
@@ -17,7 +17,7 @@ export async function joinRoom(req, env) {
     });
   }
   try {
-    const { rows: created } = await dbQuery(env, `insert into users (name, username, room_id) values ($1, $2, $3) returning *`, [
+    const { rows: created } = await dbQuery(env, ctx, `insert into users (name, username, room_id) values ($1, $2, $3) returning *`, [
       body.name,
       body.username,
       req.params.roomId,

@@ -1,6 +1,6 @@
 import { dbQuery } from '../db.js';
 
-export async function getRoom({ params, query }, env) {
+export async function getRoom({ params, query }, env, ctx) {
   const sql = `
     with winners as (
       select
@@ -36,7 +36,7 @@ export async function getRoom({ params, query }, env) {
       group by users.id, users.name;
   `;
 
-  const { rows: people } = await dbQuery(env, sql, [params.roomId]);
+  const { rows: people } = await dbQuery(env, ctx, sql, [params.roomId]);
   // const errors = {
   //   unique_conflict: 'Looks like that name or username is already taken, please try again',
   //   updating_after_decided: "Looks like you might be trying to cheat, and submit predictions after a decision has already been made! Don't worry, you other predictions were saved."

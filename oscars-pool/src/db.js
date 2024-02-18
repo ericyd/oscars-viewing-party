@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 
-export async function dbQuery(env, query, values = []) {
+export async function dbQuery(env, ctx, query, values = []) {
   const client = new Client(env.DB_URL);
   try {
     await client.connect();
@@ -8,6 +8,6 @@ export async function dbQuery(env, query, values = []) {
   } catch (e) {
     throw e;
   } finally {
-    await client.end();
+    ctx.waitUntil(client.end());  // this doesn’t hold up the response
   }
 }
