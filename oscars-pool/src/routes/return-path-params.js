@@ -1,3 +1,3 @@
 export function returnPathParams({ params }) {
-  return Response.json({ params })
+  return Response.json({ params });
 }

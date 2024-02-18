@@ -6,10 +6,12 @@
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "start": "wrangler dev"
+    "start": "wrangler dev",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "itty-router": "^3.0.12",
+    "prettier": "^3.2.5",
     "wrangler": "^3.0.0"
   }
 }
