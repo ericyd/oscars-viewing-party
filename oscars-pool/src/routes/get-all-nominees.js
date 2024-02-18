@@ -17,14 +17,17 @@ export async function getAllNominees({ params }, env, _context, _data) {
       from categories
       join nominees on nominees.category_id = categories.id
       where nominees.year = $1
-    `
-    const { rows: nominees } = await dbQuery(env, sql, [params.year])
-    return Response.json({ nominees: groupNominees(nominees) })
+    `;
+    const { rows: nominees } = await dbQuery(env, sql, [params.year]);
+    return Response.json({ nominees: groupNominees(nominees) });
   } catch (e) {
-    console.error(e)
-    return Response.json({
-      message: e.message,
-      code: 'unknown'
-    }, {status: 500})
+    console.error(e);
+    return Response.json(
+      {
+        message: e.message,
+        code: 'unknown',
+      },
+      { status: 500 },
+    );
   }
 }

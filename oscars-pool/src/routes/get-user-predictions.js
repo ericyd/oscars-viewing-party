@@ -1,4 +1,4 @@
-import { dbQuery } from "../db.js"
+import { dbQuery } from '../db.js';
 
 export async function getUserPredictions({ params }, env) {
   try {
@@ -22,12 +22,15 @@ export async function getUserPredictions({ params }, env) {
           or predictions.user_id is null
         )
       )
-    `
-    await dbQuery(env, sql, [params.userId])
+    `;
+    await dbQuery(env, sql, [params.userId]);
   } catch (e) {
-    return Response.json({
-      code: 'unknown',
-      message: e.message
-    }, {status: 500})
+    return Response.json(
+      {
+        code: 'unknown',
+        message: e.message,
+      },
+      { status: 500 },
+    );
   }
 }

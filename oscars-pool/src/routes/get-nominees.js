@@ -33,7 +33,7 @@ export async function getNominees({ params, query }, env) {
     const { rows: nominees } = await dbQuery(env, sql, [query.userId ?? null, params.year]);
     return Response.json({ nominees: groupNominees(nominees) });
   } catch (e) {
-    console.error(e)
+    console.error(e);
     return Response.json(
       {
         code: 'unknown',

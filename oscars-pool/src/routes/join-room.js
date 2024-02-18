@@ -24,7 +24,7 @@ export async function joinRoom(req, env) {
     ]);
     return Response.json({ name: created[0].name, username: created[0].username });
   } catch (e) {
-    console.error(e)
+    console.error(e);
     const code = e.message.includes('unique constraint') ? 'unique_conflict' : 'unknown';
     return Response.json(
       {

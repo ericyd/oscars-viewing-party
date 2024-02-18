@@ -5,6 +5,7 @@ import { joinRoom } from './routes/join-room';
 import { getNominees } from './routes/get-nominees';
 import { getUserPredictions } from './routes/get-user-predictions';
 import { getCategories } from './routes/get-categories';
+import { upsertPredictions } from './routes/upsert-predictions';
 
 // now let's create a router (note the lack of "new")
 const router = Router();
@@ -12,6 +13,7 @@ const router = Router();
 router.get('/api/categories', getCategories);
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
+router.post('/api/predictions/:year', upsertPredictions);
 router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
 // hmm, having trouble accessing this route
