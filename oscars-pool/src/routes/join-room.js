@@ -1,4 +1,4 @@
-import { dbQuery } from '../db';
+import { dbQuery } from '../db.js';
 
 export async function joinRoom(req, env) {
   const body = await req.json();

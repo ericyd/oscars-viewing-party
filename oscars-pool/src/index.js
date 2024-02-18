@@ -1,18 +1,19 @@
 import { Router } from 'itty-router';
 import { getAllNominees } from './routes/get-all-nominees';
-import { returnPathParams } from './routes/return-path-params';
 import { getRoom } from './routes/get-room';
 import { joinRoom } from './routes/join-room';
 import { getNominees } from './routes/get-nominees';
+import { getUserPredictions } from './routes/get-user-predictions';
 
 // now let's create a router (note the lack of "new")
 const router = Router();
 
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
-router.get('/api/params/:id/user/:user_id', returnPathParams);
 router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
+// hmm, having trouble accessing this route
+router.get('/api/room/:roomId/person/:userId/', getUserPredictions);
 
 // 404 for everything else
 router.all('*', () =>
