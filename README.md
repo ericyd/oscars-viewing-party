@@ -15,6 +15,17 @@ This app is all about "good enough". It is not secure and that's fine. The whole
 
 ## Development
 
+With `just`
+
+```shell
+just setup
+just up
+just migrate
+just express
+```
+
+Without `just`
+
 ```shell
 cp .env.sample .env
 cp atlas.hcl.sample atlas.hcl

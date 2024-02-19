@@ -2,8 +2,6 @@ import { dbQuery } from '../db.js';
 import { groupNominees } from '../util/group-nominees.js';
 
 export async function getAllNominees({ params }, env, ctx, _data) {
-  const { rows: nominees } = await dbQuery(env, 'SELECT * FROM nominees;');
-
   try {
     const sql = `
       select
