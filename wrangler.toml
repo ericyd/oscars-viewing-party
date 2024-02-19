@@ -1,5 +1,5 @@
 name = "oscars-pool"
-main = "src/index.js"
+main = "oscars-pool/src/index.js"
 compatibility_date = "2024-02-08"
 node_compat = true
 
