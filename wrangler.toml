@@ -1,0 +1,7 @@
+name = "oscars-pool"
+main = "oscars-pool/src/index.js"
+compatibility_date = "2024-02-08"
+node_compat = true
+
+[dev]
+port = 8345

@@ -1,5 +1,8 @@
-start-express:
-  node ./bin/www.js
+express:
+  node ./express/bin/www.js
+
+worker:
+  npm run dev
 
 up:
   docker-compose up -d
@@ -11,6 +14,7 @@ psql:
   docker exec -it db psql -U postgres -d local
 
 migrate:
+  just up
   atlas migrate apply --env local
 
 migrate-diff +args:
@@ -21,3 +25,9 @@ schema-apply:
 
 schema-inspect:
   atlas schema inspect --env local > schema.hcl
+
+setup:
+  cp oscars-pool/.dev.vars.example oscars-pool/.dev.vars
+  cp .env.sample .env
+  cp atlas.hcl.sample atlas.hcl
+  npm ci

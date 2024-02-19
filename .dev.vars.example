@@ -1,0 +1,16 @@
+DB_URL = "postgres://postgres:postgres@localhost/local"
+
+# If using a hosted DB from Render, append `?ssl=true` to URL string, e.g.
+# DB_URL= "postgresql://user:pass@host.ohio-postgres.render.com/db_name?ssl=true"
+
+# If using a hosted DB from Cockroach Labs, you must include your raw TLS cert as an env var,
+# and include it in the client instance, e.g.
+# const client = new Client({
+#   connectionString: env.DB_URL,
+#   ssl: {
+#     ca: env.SSL_CA,
+#   }
+# });
+# DB_URL = "postgresql://user:pass@host.cockroachlabs.cloud:5432/db_name"
+# Cockroach should provide this upon cluster creation, or a command to download it
+# SSL_CA = "-----BEGIN CERTIFICATE-----\nMI...Aw\nTz...Vh\ncm...M4\nWh...Ju\n...\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMI...sw\nCQ...gg\nR3...00\nMD...BT\n...\n-----END CERTIFICATE-----"
