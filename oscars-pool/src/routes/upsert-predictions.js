@@ -1,31 +1,37 @@
+import { dbQuery } from "../db.js";
+
 export async function upsertPredictions(req, env, ctx) {
   try {
     const year = req.params.year;
     const json = await req.json();
     const predictions = Object.entries(json.predictions).map(([category_id, nominee_id]) => ({
       user_id: json.userId,
-      category_id,
+      category_id: Number(category_id),
       nominee_id,
     }));
 
     const { rows: alreadyDecided } = await dbQuery(env, ctx, `select category_id from nominees where winner = true and year = $1`, [year]);
-    const filteredPredctions = predictions.filter((p) => !alreadyDecided.some((a) => String(a.category_id) === String(p.category_id)));
-    const error = filteredPredctions.length !== predictions.length ? '?error=updating_after_decided' : '';
+    const filteredPredctions = predictions.filter((p) => !alreadyDecided.some((a) => a.category_id === p.category_id));
+    const error = filteredPredctions.length !== predictions.length ? 'updating_after_decided' : null;
     if (filteredPredctions.length > 0) {
-      let valuesSql = ``;
+      let valuesSql = [];
       let values = [];
       for (const p of predictions) {
-        valuesSql += `($${values.length + 1}, $${values.length + 2}, $${values.length + 3})`;
+        valuesSql.push(`($${values.length + 1}, $${values.length + 2}, $${values.length + 3})`);
         values.push(p.user_id, p.category_id, p.nominee_id);
       }
-      await dbQuery(
-        env,
-        `insert into predictions (user_id, category_id, nominee_id) values ${valuesSql} on conflict user_id, category_id do update`,
-        values,
-      );
+      const sql = `
+        insert into predictions (user_id, category_id, nominee_id)
+        values ${valuesSql.join(',')}
+        on conflict (user_id, category_id)
+        do update set
+          nominee_id = EXCLUDED.nominee_id
+      `
+      await dbQuery(env, ctx, sql, values);
     }
-    return Response.json({ success: true });
+    return Response.json({ success: true, error });
   } catch (e) {
+    console.error(e)
     return Response.json({ code: 'unknown', message: e.message }, { status: 500 });
   }
 }

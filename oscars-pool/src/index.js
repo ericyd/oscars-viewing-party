@@ -14,15 +14,17 @@ router.get('/api/categories', getCategories);
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
 router.post('/api/predictions/:year', upsertPredictions);
+router.get('/api/room/:roomId/person/:userId', getUserPredictions);
 router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
-// hmm, having trouble accessing this route
-router.get('/api/room/:roomId/person/:userId/', getUserPredictions);
 
 // 404 for everything else
-router.all('*', () =>
+router.all('*', (req,env,ctx,data) =>
   Response.json(
     {
+      req,
+      ctx,
+      data,
       success: false,
       error: 'Route not found',
     },

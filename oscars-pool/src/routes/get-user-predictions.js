@@ -23,7 +23,8 @@ export async function getUserPredictions({ params }, env, ctx) {
         )
       )
     `;
-    await dbQuery(env, ctx, sql, [params.userId]);
+    const { rows: predictions } = await dbQuery(env, ctx, sql, [params.userId]);
+    return Response.json({ predictions })
   } catch (e) {
     return Response.json(
       {
