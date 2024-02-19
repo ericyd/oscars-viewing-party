@@ -1,10 +1,14 @@
 # Oscars® Viewing Party
 
-An experiment to see if I can make a quick/easy app to store Oscars predictions. (Spoiler alert, I succeeded: https://oscars-viewing-party.onrender.com/)
-
-I was going to use Cloudflare workers but the query builder lib I am using, Knex, was throwing a weird error in the Cloudflare Workers runtime and I didn't care to debug it.
+An experiment to see if I can make a quick/easy app to store Oscars predictions. (Spoiler alert, I succeeded: https://oscars-viewing-party.onrender.com/). The express code is in the `/express` directory.
 
 This app is all about "good enough". It is not secure and that's fine. The whole point is just to make predictions for a silly awards ceremony and compare with your friends.
+
+_Update 2024-02-19_: I succeeded in writing a Cloudflare Workers-compatible API, found in the `/oscars-pool` directory. Now it needs a frontend.
+
+```shell
+npm create cloudflare -- oscars-pool-frontend
+```
 
 ## Prerequisites
 
