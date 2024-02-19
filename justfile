@@ -1,6 +1,9 @@
 express:
   node ./express/bin/www.js
 
+worker:
+  npm run dev
+
 up:
   docker-compose up -d
 

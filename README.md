@@ -21,7 +21,7 @@ With `just`
 just setup
 just up
 just migrate
-just express
+just worker
 ```
 
 Without `just`
