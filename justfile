@@ -1,5 +1,5 @@
 express:
-  node ./bin/www.js
+  node ./express/bin/www.js
 
 up:
   docker-compose up -d
