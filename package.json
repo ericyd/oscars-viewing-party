@@ -11,10 +11,10 @@
     "start": "wrangler dev",
     "format": "prettier --write .",
     "client:dev": "vite oscars-pool-frontend",
-    "client:build": "vite build",
+    "client:build": "vite build oscars-pool-frontend",
     "client:preview": "vite preview",
     "pages:dev": "wrangler pages dev --compatibility-date=2024-02-08 --proxy 5173 -- npm run dev",
-    "pages:deploy": "npm run client:build && wrangler pages deploy ./dist"
+    "pages:deploy": "npm run client:build && wrangler pages deploy ./oscars-pool-frontend/dist"
   },
   "keywords": [],
   "author": "",

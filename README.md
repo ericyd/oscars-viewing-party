@@ -6,6 +6,13 @@ This app is all about "good enough". It is not secure and that's fine. The whole
 
 _Update 2024-02-19_: I succeeded in writing a Cloudflare Workers-compatible API, found in the `/oscars-pool` directory. The Vue frontend for this worker is in `/oscars-pool-frontend`
 
+Hosted versions:
+
+- Best: Vue frontend with Cloudflare workers backend: https://oscars-pool.pages.dev
+- API: Cloudflare worker: https://oscars-pool.eric-13c.workers.dev/
+- Express server: https://oscars-viewing-party.onrender.com/
+
+
 ```shell
 npm create cloudflare -- oscars-pool-frontend
 ```
