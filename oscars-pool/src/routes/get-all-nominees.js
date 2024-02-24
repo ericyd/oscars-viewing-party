@@ -11,7 +11,8 @@ export async function getAllNominees({ params }, env, ctx, _data) {
         categories.id as category_id,
         nominee,
         artwork,
-        year
+        year,
+        nominees.winner
       from categories
       join nominees on nominees.category_id = categories.id
       where nominees.year = $1

@@ -12,7 +12,8 @@ export async function getNominees({ params, query }, env, ctx) {
         nominee,
         artwork,
         year,
-        predictions.nominee_id as prediction_nominee_id
+        predictions.nominee_id as prediction_nominee_id,
+        nominees.winner
       from categories
       join nominees on nominees.category_id = categories.id
       left join predictions on (

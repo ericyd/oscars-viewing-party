@@ -7,9 +7,14 @@ export function groupNominees(list) {
       const foundCategory = foundMetaCategory.categories.find((c) => c.category === category);
       if (foundCategory) {
         foundCategory.nominees.push(nominee);
+        if (nominee.winner) {
+          foundCategory.winning_nominee_id = nominee.nominee_id
+        }
       } else {
         foundMetaCategory.categories.push({
           category,
+          category_id: nominee.category_id,
+          winning_nominee_id: nominee.winner ? nominee.nominee_id : null,
           nominees: [nominee],
         });
       }
@@ -18,7 +23,9 @@ export function groupNominees(list) {
         meta_category,
         categories: [
           {
-            category: category,
+            category,
+            category_id: nominee.category_id,
+            winning_nominee_id: nominee.winner ? nominee.nominee_id : null,
             nominees: [nominee],
           },
         ],
