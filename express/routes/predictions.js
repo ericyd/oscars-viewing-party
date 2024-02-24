@@ -1,5 +1,5 @@
-import express from 'express'
-import { db } from '../db/db.js'
+import express from 'express';
+import { db } from '../db/db.js';
 import { groupNominees } from './queries.js';
 const router = express.Router();
 
@@ -14,32 +14,34 @@ router.get('/:year', async (req, res, next) => {
         'nominee',
         'artwork',
         'year',
-        'predictions.nominee_id as prediction_nominee_id'
+        'predictions.nominee_id as prediction_nominee_id',
       )
       .from('categories')
       .join('nominees', 'nominees.category_id', '=', 'categories.id')
-      .leftJoin('predictions', function() {
-        this
-          .on('predictions.nominee_id', '=', 'nominees.id')
+      .leftJoin('predictions', function () {
+        this.on('predictions.nominee_id', '=', 'nominees.id')
           .andOn('predictions.user_id', '=', db.raw(req.session.userId))
-          .orOn(db.raw('predictions.user_id is null'))
+          .orOn(db.raw('predictions.user_id is null'));
       })
       .where({ 'nominees.year': req.params.year })
-      .andWhereRaw(`
+      .andWhereRaw(
+        `
         nominees.category_id not in (
           select category_id
           from nominees
           where winner = true
           and year = ?
         )
-      `, req.params.year)
+      `,
+        req.params.year,
+      );
     res.render('predictions', { year: req.params.year, list: groupNominees(nominees) });
   } catch (e) {
     res.render('error', {
       error: e,
       message: 'Great. Now I gotta go fix what you broke',
-      subheading: 'Thanks a lot'
-    })
+      subheading: 'Thanks a lot',
+    });
   }
 });
 
@@ -51,23 +53,27 @@ body has the shape
 */
 router.post('/:year', async (req, res, next) => {
   if (!req.session.userId) {
-    return res.render('error', { message: 'Way to go, loser', subheading: 'You have to be "logged in" to submit predictions', error: null })
+    return res.render('error', {
+      message: 'Way to go, loser',
+      subheading: 'You have to be "logged in" to submit predictions',
+      error: null,
+    });
   }
   try {
     const predictions = Object.entries(req.body).map(([category_id, nominee_id]) => ({
       user_id: req.session.userId,
       category_id,
-      nominee_id
-    }))
+      nominee_id,
+    }));
     const alreadyDecided = await db.select('category_id').from('nominees').where({ winner: true, year: req.params.year });
-    const filteredPredctions = predictions.filter(p => !alreadyDecided.some(a => String(a.category_id) === String(p.category_id)))
-    const error = filteredPredctions.length !== predictions.length ? '?error=updating_after_decided' : ''
+    const filteredPredctions = predictions.filter((p) => !alreadyDecided.some((a) => String(a.category_id) === String(p.category_id)));
+    const error = filteredPredctions.length !== predictions.length ? '?error=updating_after_decided' : '';
     if (filteredPredctions.length > 0) {
-      await db('predictions').insert(filteredPredctions).onConflict(['user_id', 'category_id']).merge()
+      await db('predictions').insert(filteredPredctions).onConflict(['user_id', 'category_id']).merge();
     }
-    return res.redirect(`/${req.session.roomId}${error}`)
+    return res.redirect(`/${req.session.roomId}${error}`);
   } catch (e) {
-    return res.render('error', { message: e.message, subheading: null, error: e })
+    return res.render('error', { message: e.message, subheading: null, error: e });
   }
 });
 

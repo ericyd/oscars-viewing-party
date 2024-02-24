@@ -12,7 +12,8 @@ export async function getNominees({ params, query }, env, ctx) {
         nominee,
         artwork,
         year,
-        predictions.nominee_id as prediction_nominee_id
+        predictions.nominee_id as prediction_nominee_id,
+        nominees.winner
       from categories
       join nominees on nominees.category_id = categories.id
       left join predictions on (
@@ -31,7 +32,7 @@ export async function getNominees({ params, query }, env, ctx) {
       )
 `;
     const { rows: nominees } = await dbQuery(env, ctx, sql, [query.userId ?? null, params.year]);
-    return Response.json({ nominees: groupNominees(nominees) });
+    return Response.json({ nominees: groupNominees(nominees) }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     console.error(e);
     return Response.json(
@@ -39,7 +40,7 @@ export async function getNominees({ params, query }, env, ctx) {
         code: 'unknown',
         message: e.message,
       },
-      { status: 500 },
+      { status: 500, headers: { 'Access-Control-Allow-Origin': '*' } },
     );
   }
 }

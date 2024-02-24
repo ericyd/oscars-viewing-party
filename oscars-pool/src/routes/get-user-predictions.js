@@ -1,4 +1,5 @@
 import { dbQuery } from '../db.js';
+import { groupNominees } from '../util/group-nominees.js';
 
 export async function getUserPredictions({ params }, env, ctx) {
   try {
@@ -24,14 +25,17 @@ export async function getUserPredictions({ params }, env, ctx) {
       )
     `;
     const { rows: predictions } = await dbQuery(env, ctx, sql, [params.userId]);
-    return Response.json({ predictions })
+    const {
+      rows: [user],
+    } = await dbQuery(env, ctx, `select * from users where id = $1`, [params.userId]);
+    return Response.json({ predictions: groupNominees(predictions), user }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     return Response.json(
       {
         code: 'unknown',
         message: e.message,
       },
-      { status: 500 },
+      { status: 500, headers: { 'Access-Control-Allow-Origin': '*' } },
     );
   }
 }

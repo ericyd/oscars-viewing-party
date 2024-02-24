@@ -6,3 +6,9 @@ atlas.hcl
 
 .dev.vars
 .wrangler/
+
+# Vue app
+
+dist
+dist-ssr
+.vscode

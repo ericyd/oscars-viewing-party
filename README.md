@@ -4,7 +4,7 @@ An experiment to see if I can make a quick/easy app to store Oscars predictions.
 
 This app is all about "good enough". It is not secure and that's fine. The whole point is just to make predictions for a silly awards ceremony and compare with your friends.
 
-_Update 2024-02-19_: I succeeded in writing a Cloudflare Workers-compatible API, found in the `/oscars-pool` directory. Now it needs a frontend.
+_Update 2024-02-19_: I succeeded in writing a Cloudflare Workers-compatible API, found in the `/oscars-pool` directory. The Vue frontend for this worker is in `/oscars-pool-frontend`
 
 ```shell
 npm create cloudflare -- oscars-pool-frontend
@@ -12,10 +12,10 @@ npm create cloudflare -- oscars-pool-frontend
 
 ## Prerequisites
 
-* [Docker](https://www.docker.com/) (and docker-compose)
-* [Atlas](https://atlasgo.io/)
-* [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
-* [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional, but recommended)
+- [Docker](https://www.docker.com/) (and docker-compose)
+- [Atlas](https://atlasgo.io/)
+- [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
+- [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional, but recommended)
 
 ## Development
 
@@ -26,6 +26,7 @@ just setup
 just up
 just migrate
 just worker
+just frontend # start the Vue frontend in a separate terminal tab
 ```
 
 Without `just`

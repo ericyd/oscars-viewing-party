@@ -9,7 +9,12 @@
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "start": "wrangler dev",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "client:dev": "vite oscars-pool-frontend",
+    "client:build": "vite build",
+    "client:preview": "vite preview",
+    "pages:dev": "wrangler pages dev --compatibility-date=2024-02-08 --proxy 5173 -- npm run dev",
+    "pages:deploy": "npm run client:build && wrangler pages deploy ./dist"
   },
   "keywords": [],
   "author": "",
@@ -24,11 +29,15 @@
     "http-errors": "~1.6.3",
     "knex": "^3.1.0",
     "morgan": "~1.9.1",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "itty-router": "^3.0.12",
     "prettier": "^3.2.5",
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.28.3",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "vite": "^5.0.11"
   }
 }
