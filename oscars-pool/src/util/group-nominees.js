@@ -8,7 +8,7 @@ export function groupNominees(list) {
       if (foundCategory) {
         foundCategory.nominees.push(nominee);
         if (nominee.winner) {
-          foundCategory.winning_nominee_id = nominee.nominee_id
+          foundCategory.winning_nominee_id = nominee.nominee_id;
         }
       } else {
         foundMetaCategory.categories.push({

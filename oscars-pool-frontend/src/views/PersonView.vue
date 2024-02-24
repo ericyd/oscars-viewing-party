@@ -10,7 +10,7 @@ const list = ref([]);
 
 onMounted(async () => {
   const json = await request(`/room/${roomId}/person/${userId}`);
-  console.log(json);
+  console.log({ json });
   list.value = json.predictions;
   person.value = json.user?.name ?? 'unknown';
 });

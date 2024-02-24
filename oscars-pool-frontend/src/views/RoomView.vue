@@ -16,18 +16,18 @@ onMounted(async () => {
 
 const name = ref(localStorage.getItem('oscars-viewing-party-name'));
 const userId = ref(localStorage.getItem('oscars-viewing-party-userId'));
-const nameInput = defineModel('nameInput')
-const usernameInput = defineModel('usernameInput')
+const nameInput = defineModel('nameInput');
+const usernameInput = defineModel('usernameInput');
 
 async function handleSubmit() {
-  console.log('handling')
+  console.log('handling');
   const body = {
     name: nameInput.value,
-    username: usernameInput.value
+    username: usernameInput.value,
   };
-  console.log(body, `/room/${roomId}/join`)
+  console.log(body, `/room/${roomId}/join`);
   const json = await request(`/room/${roomId}/join`, 'post', body);
-  console.log(json)
+  console.log(json);
   localStorage.setItem('oscars-viewing-party-userId', json.userId);
   userId.value = json.userId;
   localStorage.setItem('oscars-viewing-party-roomId', json.roomId);
@@ -57,7 +57,10 @@ async function handleSubmit() {
     </form>
   </div>
 
-  <div>(click someone's name to see their predictions)</div>
+  <div>Click someone's name to see their predictions</div>
+  <div>✅ = correct predictions</div>
+  <div>❌ = wrong predictions</div>
+  <div>⭕️ = predictions with no winner yet</div>
 
   <ul class="people">
     <li v-for="person of people">

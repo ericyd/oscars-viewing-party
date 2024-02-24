@@ -2,8 +2,10 @@ import { dbQuery } from '../db.js';
 
 export async function joinRoom(req, env, ctx) {
   const body = await req.json();
-  console.log(body)
-  const { rows: [existing] } = await dbQuery(
+  console.log(body);
+  const {
+    rows: [existing],
+  } = await dbQuery(
     env,
     ctx,
     `select *
@@ -17,7 +19,7 @@ export async function joinRoom(req, env, ctx) {
       name: existing.name,
       username: existing.username,
       roomId: req.params.roomId,
-      userId: existing.id
+      userId: existing.id,
     });
   }
   try {

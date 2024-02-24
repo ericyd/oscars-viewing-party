@@ -5,30 +5,35 @@ import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
-const userId = localStorage.getItem('oscars-viewing-party-userId')
+const userId = localStorage.getItem('oscars-viewing-party-userId');
 const { year } = route.params;
 const list = ref([]);
-const predictions = defineModel('predictions')
+const predictions = defineModel('predictions');
 
 onMounted(async () => {
   const json = await request(`/nominees/${year}?userId=${userId}`);
-  console.log({json});
+  console.log({ json });
   list.value = json.nominees;
-  const categories = json.nominees.flatMap(n => n.categories)
+  const categories = json.nominees.flatMap((n) => n.categories);
   // this feels like bubblegum and tape
-  predictions.value = categories.reduce((map, curr) => ({ ...map, [curr.category_id]: curr.nominees.find(n => n.prediction_nominee_id)?.nominee_id ?? null }), {})
-  console.log({'predictions.value': predictions.value})
+  // the idea here is that the "predictions" model is an Record<category_id, nominee_id> type;
+  // the nominee_id must be equal to the value which was predicted by the current user.
+  // this value gets updated via the v-model bindings in the radio inputs.
+  predictions.value = categories.reduce(
+    (map, curr) => ({ ...map, [curr.category_id]: curr.nominees.find((n) => n.prediction_nominee_id)?.nominee_id ?? null }),
+    {},
+  );
+  console.log({ 'predictions.value': predictions.value });
 });
 
 async function handleSubmit() {
-  console.log(predictions.value)
+  console.log({ 'predictions.value': predictions.value });
   const body = {
     userId,
     predictions: predictions.value,
   };
   const json = await request(`/predictions/${year}`, 'post', body);
-  
-  console.log(json);
+  console.log({ json });
   router.push(`/${localStorage.getItem('oscars-viewing-party-roomId')}`);
 }
 </script>
@@ -38,7 +43,7 @@ async function handleSubmit() {
 
   <form @submit.prevent="handleSubmit">
     <template v-for="item of list">
-      <h2 class="meta-category">{{ item.metaCategory }}</h2>
+      <h2 class="meta-category">{{ item.meta_category }}</h2>
       <template v-for="c of item.categories">
         <h3>{{ c.category }}</h3>
         <div v-for="n of c.nominees" class="flex margin-bottom">
@@ -65,4 +70,3 @@ async function handleSubmit() {
     <button type="submit">Submit predictions</button>
   </form>
 </template>
-
