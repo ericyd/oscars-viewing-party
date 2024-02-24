@@ -2,27 +2,36 @@ import { dbQuery } from '../db.js';
 
 export async function joinRoom(req, env, ctx) {
   const body = await req.json();
-  const { rows: existing } = await dbQuery(
+  console.log(body)
+  const { rows: [existing] } = await dbQuery(
     env,
+    ctx,
     `select *
     from users
     where name = $1
     and username = $2`,
     [body.name, body.username],
   );
-  if (existing[0]) {
+  if (existing) {
     return Response.json({
-      name: existing[0].name,
-      username: existing[0].username,
+      name: existing.name,
+      username: existing.username,
+      roomId: req.params.roomId,
+      userId: existing.id
     });
   }
   try {
-    const { rows: created } = await dbQuery(env, ctx, `insert into users (name, username, room_id) values ($1, $2, $3) returning *`, [
+    const {
+      rows: [user],
+    } = await dbQuery(env, ctx, `insert into users (name, username, room_id) values ($1, $2, $3) returning *`, [
       body.name,
       body.username,
       req.params.roomId,
     ]);
-    return Response.json({ name: created[0].name, username: created[0].username }, { headers: { 'Access-Control-Allow-Origin': '*' } });
+    return Response.json(
+      { name: user.name, username: user.username, roomId: req.params.roomId, userId: user.id },
+      { headers: { 'Access-Control-Allow-Origin': '*' } },
+    );
   } catch (e) {
     console.error(e);
     const code = e.message.includes('unique constraint') ? 'unique_conflict' : 'unknown';
