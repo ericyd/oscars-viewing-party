@@ -4,6 +4,9 @@ express:
 worker:
   npm run dev
 
+frontend: 
+  npm run client:dev
+
 up:
   docker-compose up -d
 
