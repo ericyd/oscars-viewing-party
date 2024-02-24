@@ -12,7 +12,6 @@ Hosted versions:
 - API: Cloudflare worker: https://oscars-pool.eric-13c.workers.dev/
 - Express server: https://oscars-viewing-party.onrender.com/
 
-
 ```shell
 npm create cloudflare -- oscars-pool-frontend
 ```

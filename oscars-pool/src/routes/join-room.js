@@ -15,12 +15,15 @@ export async function joinRoom(req, env, ctx) {
     [body.name, body.username],
   );
   if (existing) {
-    return Response.json({
-      name: existing.name,
-      username: existing.username,
-      roomId: req.params.roomId,
-      userId: existing.id,
-    });
+    return Response.json(
+      {
+        name: existing.name,
+        username: existing.username,
+        roomId: req.params.roomId,
+        userId: existing.id,
+      },
+      { headers: { 'Access-Control-Allow-Origin': '*' } },
+    );
   }
   try {
     const {
