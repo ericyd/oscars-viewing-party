@@ -12,10 +12,10 @@ npm create cloudflare -- oscars-pool-frontend
 
 ## Prerequisites
 
-* [Docker](https://www.docker.com/) (and docker-compose)
-* [Atlas](https://atlasgo.io/)
-* [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
-* [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional, but recommended)
+- [Docker](https://www.docker.com/) (and docker-compose)
+- [Atlas](https://atlasgo.io/)
+- [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
+- [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional, but recommended)
 
 ## Development
 
