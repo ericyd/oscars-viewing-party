@@ -17,7 +17,7 @@ export async function getAllNominees({ params }, env, ctx, _data) {
       where nominees.year = $1
     `;
     const { rows: nominees } = await dbQuery(env, ctx, sql, [params.year]);
-    return Response.json({ nominees: groupNominees(nominees) });
+    return Response.json({ nominees: groupNominees(nominees) }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     console.error(e);
     return Response.json(
@@ -25,7 +25,7 @@ export async function getAllNominees({ params }, env, ctx, _data) {
         message: e.message,
         code: 'unknown',
       },
-      { status: 500 },
+      { status: 500, headers: { 'Access-Control-Allow-Origin': '*' } },
     );
   }
 }

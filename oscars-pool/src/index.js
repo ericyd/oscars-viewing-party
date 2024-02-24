@@ -19,7 +19,7 @@ router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
 
 // 404 for everything else
-router.all('*', (req,env,ctx,data) =>
+router.all('*', (req, env, ctx, data) =>
   Response.json(
     {
       req,

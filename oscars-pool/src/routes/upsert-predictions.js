@@ -1,4 +1,4 @@
-import { dbQuery } from "../db.js";
+import { dbQuery } from '../db.js';
 
 export async function upsertPredictions(req, env, ctx) {
   try {
@@ -26,12 +26,12 @@ export async function upsertPredictions(req, env, ctx) {
         on conflict (user_id, category_id)
         do update set
           nominee_id = EXCLUDED.nominee_id
-      `
+      `;
       await dbQuery(env, ctx, sql, values);
     }
-    return Response.json({ success: true, error });
+    return Response.json({ success: true, error }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
-    console.error(e)
-    return Response.json({ code: 'unknown', message: e.message }, { status: 500 });
+    console.error(e);
+    return Response.json({ code: 'unknown', message: e.message }, { status: 500, headers: { 'Access-Control-Allow-Origin': '*' } });
   }
 }

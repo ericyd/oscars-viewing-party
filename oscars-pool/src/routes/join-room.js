@@ -22,7 +22,7 @@ export async function joinRoom(req, env, ctx) {
       body.username,
       req.params.roomId,
     ]);
-    return Response.json({ name: created[0].name, username: created[0].username });
+    return Response.json({ name: created[0].name, username: created[0].username }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     console.error(e);
     const code = e.message.includes('unique constraint') ? 'unique_conflict' : 'unknown';
@@ -33,6 +33,7 @@ export async function joinRoom(req, env, ctx) {
       },
       {
         status: 500,
+        headers: { 'Access-Control-Allow-Origin': '*' },
       },
     );
   }

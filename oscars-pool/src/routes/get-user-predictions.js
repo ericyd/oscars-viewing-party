@@ -24,14 +24,14 @@ export async function getUserPredictions({ params }, env, ctx) {
       )
     `;
     const { rows: predictions } = await dbQuery(env, ctx, sql, [params.userId]);
-    return Response.json({ predictions })
+    return Response.json({ predictions }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     return Response.json(
       {
         code: 'unknown',
         message: e.message,
       },
-      { status: 500 },
+      { status: 500, headers: { 'Access-Control-Allow-Origin': '*' } },
     );
   }
 }
