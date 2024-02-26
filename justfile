@@ -16,8 +16,7 @@ down:
 psql:
   docker exec -it db psql -U postgres -d local
 
-migrate:
-  just up
+migrate: up
   atlas migrate apply --env local
 
 migrate-diff +args:

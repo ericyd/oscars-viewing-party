@@ -11,6 +11,7 @@ services:
       POSTGRES_DB: local
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./migrations:/migrations
 
 volumes:
   db_data:

@@ -18,24 +18,23 @@ npm create cloudflare -- oscars-pool-frontend
 
 ## Prerequisites
 
-- [Docker](https://www.docker.com/) (and docker-compose)
-- [Atlas](https://atlasgo.io/)
 - [NodeJS](https://nodejs.org/en) ([asdf](https://asdf-vm.com/) recommended)
-- [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional, but recommended)
+- [Docker](https://www.docker.com/) (and docker-compose)
+- [Atlas](https://atlasgo.io/) (optional)
+- [Just](https://github.com/casey/just/blob/master/README.md#packages) (optional)
 
 ## Development
 
-With `just`
+With `just`, `atlas`, `docker` and `node`
 
 ```shell
-just setup
-just up
-just migrate
+just setup migrate
 just worker
-just frontend # start the Vue frontend in a separate terminal tab
+# start the Vue frontend in a separate terminal tab
+just frontend
 ```
 
-Without `just`
+With only `atlas`, `docker` and `node`
 
 ```shell
 cp .env.sample .env
@@ -47,6 +46,22 @@ docker-compose up -d
 atlas migrate apply --env local
 # install node dependencies
 npm ci
+# Start the Cloudflare worker backend
+npm run dev
+# Start the Vite server for the Vue frontend
+npm run client:dev
+```
+
+With `docker` and `node`
+
+```shell
+cp .env.sample .env
+docker-compose up -d
+# run migrations manually
+for filename in migrations/*.sql; do docker exec db psql -U postgres -d local -f "/$filename"; done
+npm ci
+npm run dev
+npm run client:dev
 ```
 
 ## Database
