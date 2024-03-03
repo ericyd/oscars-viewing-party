@@ -6,9 +6,11 @@ import { useRoute, useRouter } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 const userId = localStorage.getItem('oscars-viewing-party-userId');
+const roomId = localStorage.getItem('oscars-viewing-party-roomId');
 const { year } = route.params;
 const list = ref([]);
 const predictions = defineModel('predictions');
+const status = ref({})
 
 onMounted(async () => {
   const json = await request(`/nominees/${year}?userId=${userId}`);
@@ -26,26 +28,33 @@ onMounted(async () => {
   console.log({ 'predictions.value': predictions.value });
 });
 
-async function handleSubmit() {
-  console.log({ 'predictions.value': predictions.value });
+async function handleSubmit(categoryId) {
+  console.log({ 'predictions.value': predictions.value[categoryId] });
   const body = {
     userId,
-    predictions: predictions.value,
+    categoryId,
+    nomineeId: predictions.value[categoryId],
   };
-  const json = await request(`/predictions/${year}`, 'post', body);
-  console.log({ json });
-  router.push(`/${localStorage.getItem('oscars-viewing-party-roomId')}`);
+  try {
+    const json = await request(`/prediction/${year}`, 'post', body);
+    console.log({ json });
+    status.value[categoryId] = 'Saved! ✅'
+  } catch (e) {
+    status.value[categoryId] = 'You broke something 😿'
+  }
 }
 </script>
 
 <template>
   <h1>Make your predictions</h1>
 
-  <form @submit.prevent="handleSubmit">
-    <template v-for="item of list">
-      <h2 class="meta-category">{{ item.meta_category }}</h2>
-      <template v-for="c of item.categories">
-        <h3>{{ c.category }}</h3>
+  <RouterLink :to="`/${roomId}`" class="block margin-bottom">Back to room {{ roomId }}</RouterLink>
+
+  <template v-for="item of list">
+    <h2 class="meta-category">{{ item.meta_category }}</h2>
+    <template v-for="c of item.categories">
+      <h3>{{ c.category }}</h3>
+      <form @submit.prevent="(e) => handleSubmit(c.category_id)" class="margin-bottom">
         <div v-for="n of c.nominees" class="flex margin-bottom">
           <div class="width-2 flex items-center">
             <input
@@ -64,8 +73,10 @@ async function handleSubmit() {
             </label>
           </div>
         </div>
-      </template>
+        <button type="submit">Submit prediction for {{ c.category }}</button>
+        <div v-if="status[c.category_id]">{{ status[c.category_id] }}</div>
+      </form>
     </template>
-    <button type="submit">Submit predictions</button>
-  </form>
+  </template>
+  <RouterLink :to="`/${roomId}`" class="block margin-bottom">Back to room {{ roomId }}</RouterLink>
 </template>

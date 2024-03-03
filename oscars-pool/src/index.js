@@ -7,6 +7,7 @@ import { getUserPredictions } from './routes/get-user-predictions';
 import { getCategories } from './routes/get-categories';
 import { upsertPredictions } from './routes/upsert-predictions';
 import { declareWinner } from './routes/declare-winner';
+import { upsertPrediction } from './routes/upsert-prediction';
 
 // now let's create a router (note the lack of "new")
 const router = Router();
@@ -14,6 +15,8 @@ const router = Router();
 router.get('/api/categories', getCategories);
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
+router.post('/api/prediction/:year', upsertPrediction);
+// currently not used, can remove
 router.post('/api/predictions/:year', upsertPredictions);
 router.get('/api/room/:roomId/person/:userId', getUserPredictions);
 router.get('/api/room/:roomId', getRoom);
