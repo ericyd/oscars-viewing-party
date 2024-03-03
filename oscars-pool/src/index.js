@@ -6,6 +6,7 @@ import { getNominees } from './routes/get-nominees';
 import { getUserPredictions } from './routes/get-user-predictions';
 import { getCategories } from './routes/get-categories';
 import { upsertPredictions } from './routes/upsert-predictions';
+import { declareWinner } from './routes/declare-winner';
 
 // now let's create a router (note the lack of "new")
 const router = Router();
@@ -17,6 +18,7 @@ router.post('/api/predictions/:year', upsertPredictions);
 router.get('/api/room/:roomId/person/:userId', getUserPredictions);
 router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
+router.post('/api/winner/:year', declareWinner);
 
 // 404 for everything else
 router.all('*', (req, env, ctx, data) =>
