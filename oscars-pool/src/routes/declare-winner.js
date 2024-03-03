@@ -3,15 +3,27 @@ import { dbQuery } from '../db.js';
 export async function declareWinner(req, env, ctx) {
   try {
     const body = await req.json();
+    if (typeof body.nominee_id !== 'number') {
+      return Response.json(
+        {
+          code: 'no_nominee_id',
+        },
+        {
+          status: 403,
+          headers: { 'Access-Control-Allow-Origin': '*' },
+        },
+      );
+    }
+
     // in order to declare a winner, you must know the username of the first user marked "admin".
     // super hacky, and also totally fine for this project app!
     const {
       rows: [{ username: secretPhrase }],
     } = await dbQuery(env, ctx, `select id, username from users where admin = true order by id asc`);
-    if (typeof body.nominee_id !== 'number' || body.secret_phrase !== secretPhrase) {
+    if (body.secret_phrase !== secretPhrase) {
       return Response.json(
         {
-          code: 'CHEATER',
+          code: 'cheater',
         },
         {
           status: 403,

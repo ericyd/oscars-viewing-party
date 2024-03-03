@@ -14,11 +14,11 @@ onMounted(async () => {
   const json = await request(`/nominees/${year}?userId=${userId}`);
   console.log({ json });
   list.value = json.nominees;
-  const categories = json.nominees.flatMap((n) => n.categories);
   // this feels like bubblegum and tape
   // the idea here is that the "predictions" model is an Record<category_id, nominee_id> type;
   // the nominee_id must be equal to the value which was predicted by the current user.
   // this value gets updated via the v-model bindings in the radio inputs.
+  const categories = json.nominees.flatMap((n) => n.categories);
   predictions.value = categories.reduce(
     (map, curr) => ({ ...map, [curr.category_id]: curr.nominees.find((n) => n.prediction_nominee_id)?.nominee_id ?? null }),
     {},
@@ -48,7 +48,6 @@ async function handleSubmit() {
         <h3>{{ c.category }}</h3>
         <div v-for="n of c.nominees" class="flex margin-bottom">
           <div class="width-2 flex items-center">
-            <!-- v-model="predictions[`${n.category_id}_${n.nominee_id}`]" -->
             <input
               type="radio"
               :name="n.category_id"
