@@ -1,0 +1,5 @@
+1. DB doesn't await to connect
+2. at `http://localhost:8345/api/all-nominees/2024`, the winning_nominee_id is not correct
+3. posting to `/room/:roomId/join` multiple times does not return the correct username in the response body
+4. getting /all-nominees/2025 returns the same data as 2024, but it should return an empty array
+5. posting to /predictions/2024 doesn't account for categories where the winner has already been declared, but it should
