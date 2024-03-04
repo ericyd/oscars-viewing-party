@@ -18,7 +18,7 @@ export async function joinRoom(req, env, ctx) {
     return Response.json(
       {
         name: existing.name,
-        username: existing.username,
+        username: existing.name,
         roomId: req.params.roomId,
         userId: existing.id,
       },

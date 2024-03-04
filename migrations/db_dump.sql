@@ -312,9 +312,9 @@ COPY public.nominees (id, nominee, artwork, category_id, winner, year) FROM stdi
 85	Billie Eilish and Finneas O'Connell	"What Was I Made For?" from Barbie	16	f	2024
 86	Production Design: Sarah Greenwood; Set Decoration: Katie Spencer	Barbie	17	f	2024
 87	Production Design: Jack Fisk; Set Decoration: Adam Willis	Killers Of The Flower Moon	17	f	2024
-16	Sterling K. Brown	American Fiction	3	t	2024
+16	Sterling K. Brown	American Fiction	3	f	2024
 11	Bradley Cooper	Maestro	2	t	2024
-21	Annette Bening	Nyad	4	t	2024
+21	Annette Bening	Nyad	4	f	2024
 27	Danielle Brooks	The Color Purple	5	t	2024
 32	Peter Sohn and Denise Ream	Elemental	6	t	2024
 88	Production Design: Arthur Max; Set Decoration: Elli Griff	Napoleon	17	f	2024

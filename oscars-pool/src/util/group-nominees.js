@@ -8,13 +8,13 @@ export function groupNominees(list) {
       if (foundCategory) {
         foundCategory.nominees.push(nominee);
         if (nominee.winner) {
-          foundCategory.winning_nominee_id = nominee.nominee_id;
+          foundCategory.winning_nominee_id = nominee.category_id;
         }
       } else {
         foundMetaCategory.categories.push({
           category,
           category_id: nominee.category_id,
-          winning_nominee_id: nominee.winner ? nominee.nominee_id : null,
+          winning_nominee_id: nominee.winner ? nominee.category_id : null,
           nominees: [nominee],
         });
       }
@@ -25,7 +25,7 @@ export function groupNominees(list) {
           {
             category,
             category_id: nominee.category_id,
-            winning_nominee_id: nominee.winner ? nominee.nominee_id : null,
+            winning_nominee_id: nominee.winner ? nominee.category_id : null,
             nominees: [nominee],
           },
         ],

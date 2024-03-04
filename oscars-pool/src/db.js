@@ -3,8 +3,8 @@ import { Client } from 'pg';
 export async function dbQuery(env, ctx, query, values = []) {
   const client = new Client({ connectionString: env.DB_URL });
   try {
-    await client.connect();
-    return await client.query(query, values);
+    client.connect();
+    return client.query(query, values);
   } catch (e) {
     throw e;
   } finally {
