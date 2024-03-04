@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "80545dfe-8fce-4a71-b08d-dcf82c4f8d56",
+		"name": "oscars-pool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29462978"
+	},
+	"item": [
+		{
+			"name": "all-nominees/2024",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8345/api/all-nominees/2024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8345",
+					"path": [
+						"api",
+						"all-nominees",
+						"2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all-nominees/2025",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8345/api/all-nominees/2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8345",
+					"path": [
+						"api",
+						"all-nominees",
+						"2025"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/room/asdf/join",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"bingo\",\n    \"username\": \"the dog\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8345/api/room/asdf/join",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8345",
+					"path": [
+						"api",
+						"room",
+						"asdf",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/predictions/2024",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"1\",\n    \"predictions\": {\n        \"2\": 12\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8345/api/predictions/2024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8345",
+					"path": [
+						"api",
+						"predictions",
+						"2024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/room/asdf/person/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"1\",\n    \"predictions\": {\n        \"2\": 12\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8345/api/room/asdf/person/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8345",
+					"path": [
+						"api",
+						"room",
+						"asdf",
+						"person",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
