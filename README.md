@@ -28,8 +28,7 @@ npm create cloudflare -- oscars-pool-frontend
 With `just`, `atlas`, `docker` and `node`
 
 ```shell
-just setup migrate
-just worker
+just setup migrate worker
 # start the Vue frontend in a separate terminal tab
 just frontend
 ```
@@ -38,6 +37,7 @@ With only `atlas`, `docker` and `node`
 
 ```shell
 cp .env.sample .env
+cp .dev.vars.example .dev.vars
 cp atlas.hcl.sample atlas.hcl
 # start DB
 docker-compose up -d
@@ -56,9 +56,14 @@ With `docker` and `node`
 
 ```shell
 cp .env.sample .env
+cp .dev.vars.example .dev.vars
 docker-compose up -d
 # run migrations manually
 for filename in migrations/*.sql; do docker exec db psql -U postgres -d local -f "/$filename"; done
+# or if that loop syntax doesn't work:
+# docker exec db psql -U postgres -d local -f migrations/20240208014006_full_schema.sql
+# docker exec db psql -U postgres -d local -f migrations/20240208024216_insert_categories.sql
+# docker exec db psql -U postgres -d local -f migrations/20240211233622_drop_rooms.sql
 npm ci
 npm run dev
 npm run client:dev
