@@ -56,7 +56,7 @@ With `docker` and `node`
 
 ```shell
 cp .env.sample .env
-cp .dev.vars.example .dev.vars
+cp .dev.vars.sample .dev.vars
 docker-compose up -d
 # run migrations manually
 for filename in migrations/*.sql; do docker exec db psql -U postgres -d local -f "/$filename"; done

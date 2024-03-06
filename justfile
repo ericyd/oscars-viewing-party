@@ -29,7 +29,7 @@ schema-inspect:
   atlas schema inspect --env local > schema.hcl
 
 setup:
-  cp .dev.vars.example .dev.vars
+  cp .dev.vars.sample .dev.vars
   cp .env.sample .env
   cp atlas.hcl.sample atlas.hcl
   npm ci
