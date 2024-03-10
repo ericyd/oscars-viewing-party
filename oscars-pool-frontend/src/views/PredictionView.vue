@@ -64,6 +64,7 @@ async function handleSubmit(categoryId) {
               v-model="predictions[n.category_id]"
               :id="`${n.category_id}_${n.nominee_id}`"
               :checked="n.prediction_nominee_id === n.nominee_id ? 'checked' : undefined"
+              @change="(e) => handleSubmit(c.category_id)"
             />
           </div>
           <div class="flex items-center max-width-80">
@@ -73,7 +74,7 @@ async function handleSubmit(categoryId) {
             </label>
           </div>
         </div>
-        <button type="submit">Submit prediction for {{ c.category }}</button>
+        <!-- <button type="submit">Submit prediction for {{ c.category }}</button> -->
         <div v-if="status[c.category_id]">{{ status[c.category_id] }}</div>
       </form>
     </template>
