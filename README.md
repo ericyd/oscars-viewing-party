@@ -1,20 +1,10 @@
 # Oscars® Viewing Party
 
-An experiment to see if I can make a quick/easy app to store Oscars predictions. (Spoiler alert, I succeeded: https://oscars-viewing-party.onrender.com/). The express code is in the `/express` directory.
+A quick/easy app to store Oscars predictions.
 
 This app is all about "good enough". It is not secure and that's fine. The whole point is just to make predictions for a silly awards ceremony and compare with your friends.
 
-_Update 2024-02-19_: I succeeded in writing a Cloudflare Workers-compatible API, found in the `/oscars-pool` directory. The Vue frontend for this worker is in `/oscars-pool-frontend`
-
-Hosted versions:
-
-- Best: Vue frontend with Cloudflare workers backend: https://oscars-pool.pages.dev
-- API: Cloudflare worker: https://oscars-pool.eric-13c.workers.dev/
-- Express server: https://oscars-viewing-party.onrender.com/
-
-```shell
-npm create cloudflare -- oscars-pool-frontend
-```
+Hosted at https://oscars-pool.pages.dev
 
 ## Prerequisites
 
@@ -83,4 +73,18 @@ Use Atlas to manage the DB.
 - Dump a remote database: `docker exec -it db pg_dump -d dbname -h host -p port -U user -f migrations/prod.sql`
    - this works because `/migrations` is already bound to the container
 
-<!-- Restore: production dump file stored in google drive -->
+<!-- 
+Notes to self:
+
+1. Create a new cloudflare workers project:
+
+```shell
+npm create cloudflare -- oscars-pool-frontend
+```
+
+2. Restore production database: production dump file stored in google drive, then run
+
+```
+docker exec -it db psql -U postgres -d local restore.sql
+```
+ -->
