@@ -80,3 +80,7 @@ Use Atlas to manage the DB.
 - Apply "insert" migrations: `atlas migrate apply --env local --baseline 20240208024216`
 - Add new migration file: `atlas migrate new` (after adding SQL, run `atlas migrate hash` to rehash)
 - Drop the DB and restart: `just down`
+- Dump a remote database: `docker exec -it db pg_dump -d dbname -h host -p port -U user -f migrations/prod.sql`
+   - this works because `/migrations` is already bound to the container
+
+<!-- Restore: production dump file stored in google drive -->
