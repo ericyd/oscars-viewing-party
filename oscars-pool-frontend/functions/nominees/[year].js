@@ -1,5 +1,5 @@
 import { dbQuery } from '../db.js';
-import { groupNominees } from '../util/group-nominees.js';
+import { groupNominees } from '../../util/group-nominees.js';
 
 export async function getNominees({ params, query }, env, ctx) {
   try {

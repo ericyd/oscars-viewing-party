@@ -1,0 +1,4 @@
+{
+  "TODO": "https://developers.cloudflare.com/pages/functions/routing/#create-a-_routesjson-file",
+  "why": "this is a requirement for free static hosting, while also allowing dynamic API powered by workers"
+}

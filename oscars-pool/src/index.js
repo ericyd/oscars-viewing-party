@@ -16,12 +16,11 @@ router.get('/api/categories', getCategories);
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
 router.post('/api/prediction/:year', upsertPrediction);
-// currently not used, can remove
+router.post('/api/winner/:year', declareWinner);
 router.post('/api/predictions/:year', upsertPredictions);
 router.get('/api/room/:roomId/person/:userId', getUserPredictions);
 router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
-router.post('/api/winner/:year', declareWinner);
 
 // 404 for everything else
 router.all('*', (req, env, ctx, data) =>
