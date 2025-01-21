@@ -1,4 +1,4 @@
-import { dbQuery } from '../db.js';
+import { dbQuery } from '../../util/db.js';
 
 export async function getRoom({ params, url }, env, ctx) {
   const sql = `

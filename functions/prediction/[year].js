@@ -1,4 +1,4 @@
-import { dbQuery } from '../db.js';
+import { dbQuery } from '../../util/db.js';
 
 // upsertPrediction
 export async function onRequest(req) {

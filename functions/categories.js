@@ -1,4 +1,4 @@
-import { dbQuery } from '../db';
+import { dbQuery } from '../util/db';
 import { groupCategories } from '../util/group-categories';
 
 // getCategories

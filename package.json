@@ -5,16 +5,12 @@
   "description": "An experiment to see if I can make a quick/easy voting app.",
   "main": "index.js",
   "scripts": {
-    "express": "node ./express/bin/www.js",
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
     "format": "prettier --write .",
-    "client:dev": "vite oscars-pool-frontend",
-    "client:build": "vite build oscars-pool-frontend",
+    "client:dev": "vite",
+    "client:build": "vite build",
     "client:preview": "vite preview",
-    "pages:dev": "wrangler pages dev --compatibility-date=2024-02-08 ./oscars-pool-frontend",
-    "pages:deploy": "npm run client:build && wrangler pages deploy ./oscars-pool-frontend/dist"
+    "pages:dev": "wrangler pages dev --compatibility-date=2024-02-08 .",
+    "pages:deploy": "npm run client:build && wrangler pages deploy ./dist"
   },
   "keywords": [],
   "author": "",

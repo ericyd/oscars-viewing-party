@@ -1,4 +1,4 @@
-import { dbQuery } from '../db.js';
+import { dbQuery } from '../util/db.js';
 import { groupNominees } from '../util/group-nominees.js';
 
 // getUserPredictions
