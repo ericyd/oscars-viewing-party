@@ -18,6 +18,3 @@ npm run dev
 npm run build
 ```
 
-## Structure
-
-This is a Vue application hosted on Cloudflare Pages. The API functionality is provided by [Pages Functions](https://developers.cloudflare.com/pages/functions/)

@@ -88,3 +88,7 @@ npm create cloudflare -- oscars-pool-frontend
 docker exec -it db psql -U postgres -d local restore.sql
 ```
  -->
+
+# Technical structure
+
+This is a Vue application hosted on Cloudflare Pages. The API functionality is provided by [Pages Functions](https://developers.cloudflare.com/pages/functions/)

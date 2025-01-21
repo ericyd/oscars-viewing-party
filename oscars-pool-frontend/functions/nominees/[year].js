@@ -1,7 +1,8 @@
 import { dbQuery } from '../db.js';
 import { groupNominees } from '../../util/group-nominees.js';
 
-export async function getNominees({ params, query }, env, ctx) {
+// getNominees
+export async function onRequest({ params, query }) {
   try {
     const sql = `
       select
@@ -31,7 +32,7 @@ export async function getNominees({ params, query }, env, ctx) {
         and year = $2
       )
 `;
-    const { rows: nominees } = await dbQuery(env, ctx, sql, [query.userId ?? null, params.year]);
+    const { rows: nominees } = await dbQuery(sql, [query.userId ?? null, params.year]);
     return Response.json({ nominees: groupNominees(nominees) }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     console.error(e);

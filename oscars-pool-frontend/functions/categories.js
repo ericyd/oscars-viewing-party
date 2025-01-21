@@ -1,9 +1,13 @@
 import { dbQuery } from '../db';
 import { groupCategories } from '../util/group-categories';
 
-export async function getCategories(_request, env, ctx) {
+// getCategories
+export async function onRequest(context) {
+  const params = context.params
+  console.log({params})
   try {
-    const { rows: categories } = await dbQuery(env, ctx, 'select * from categories');
+    const categories = await dbQuery('select * from categories');
+    console.log({categories});
     return Response.json({ categories: groupCategories(categories) }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {
     console.error(e);

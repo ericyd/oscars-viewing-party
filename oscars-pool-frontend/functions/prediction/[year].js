@@ -1,6 +1,7 @@
 import { dbQuery } from '../db.js';
 
-export async function upsertPrediction(req, env, ctx) {
+// upsertPrediction
+export async function onRequest(req) {
   try {
     const year = req.params.year;
     const json = await req.json();
@@ -14,7 +15,7 @@ export async function upsertPrediction(req, env, ctx) {
       },
     ];
 
-    const { rows: alreadyDecided } = await dbQuery(env, ctx, `select category_id from nominees where winner = true and year = $1`, [year]);
+    const { rows: alreadyDecided } = await dbQuery(`select category_id from nominees where winner = true and year = $1`, [year]);
     const filteredPredctions = predictions.filter((p) => !alreadyDecided.some((a) => a.category_id === p.category_id));
     const error = filteredPredctions.length !== predictions.length ? 'updating_after_decided' : null;
     if (filteredPredctions.length > 0) {
@@ -31,7 +32,7 @@ export async function upsertPrediction(req, env, ctx) {
         do update set
           nominee_id = EXCLUDED.nominee_id
       `;
-      await dbQuery(env, ctx, sql, values);
+      await dbQuery(sql, values);
     }
     return Response.json({ success: true, error }, { headers: { 'Access-Control-Allow-Origin': '*' } });
   } catch (e) {

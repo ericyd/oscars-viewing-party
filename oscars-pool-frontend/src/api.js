@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.PROD ? 'https://oscars-pool.eric-13c.workers.dev/api' : 'http://localhost:8345/api';
+const baseUrl = import.meta.env.PROD ? 'https://oscars-pool.eric-13c.workers.dev/api' : 'http://localhost:8345';
 
 export async function request(path, method = 'get', body = null) {
   // this could be more defensive, meh
