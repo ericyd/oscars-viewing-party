@@ -32,10 +32,10 @@ html
         form(method="POST" action=`/room/${roomId}/join`)
           label
             | Display name
-            input(type="text" name="name" id="displayName" v-model="nameInput")
+            input(type="text" name="name" id="displayName")
           label.margin-bottom
             | Username (use something identifiable to you)
-            input(type="text" name="username" id="username" v-model="usernameInput")
+            input(type="text" name="username" id="username")
           button(type="submit") Join room
 
     div Click someone's name to see their predictions

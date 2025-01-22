@@ -1,6 +1,6 @@
 import { Router } from 'itty-router';
 import { getAllNominees } from './routes/get-all-nominees';
-import { getRoom } from './routes/get-room';
+// import { getRoom } from './routes/get-room';
 import { joinRoom } from './routes/join-room';
 import { getNominees } from './routes/get-nominees';
 import { getUserPredictions } from './routes/get-user-predictions';
@@ -9,11 +9,13 @@ import { upsertPredictions } from './routes/upsert-predictions';
 import { declareWinner } from './routes/declare-winner';
 import { upsertPrediction } from './routes/upsert-prediction';
 import { home } from './routes/home';
+import { findOrCreateRoom } from './routes/find-or-create-room';
 
 // now let's create a router (note the lack of "new")
 const router = Router();
 
 router.get('/', home);
+router.post('/find-or-create-room', findOrCreateRoom);
 router.get('/api/categories', getCategories);
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
@@ -21,7 +23,7 @@ router.post('/api/prediction/:year', upsertPrediction);
 // currently not used, can remove
 router.post('/api/predictions/:year', upsertPredictions);
 router.get('/api/room/:roomId/person/:userId', getUserPredictions);
-router.get('/api/room/:roomId', getRoom);
+// router.get('/api/room/:roomId', getRoom);
 router.post('/api/room/:roomId/join', joinRoom);
 router.post('/api/winner/:year', declareWinner);
 

@@ -1,6 +1,6 @@
 import { dbQuery } from '../db.js';
 
-export async function getRoom({ params, url }, env, ctx) {
+export async function getRoom(roomId, env, ctx) {
   const sql = `
     with winners as (
       select
@@ -36,6 +36,6 @@ export async function getRoom({ params, url }, env, ctx) {
       group by users.id, users.name;
   `;
 
-  const { rows: people } = await dbQuery(env, ctx, sql, [params.roomId]);
-  return Response.json({ people }, { headers: { 'Access-Control-Allow-Origin': '*' } });
+  const { rows: people } = await dbQuery(env, ctx, sql, [roomId]);
+  return people;
 }

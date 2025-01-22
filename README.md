@@ -88,3 +88,10 @@ npm create cloudflare -- oscars-pool-frontend
 docker exec -it db psql -U postgres -d local restore.sql
 ```
  -->
+
+
+Current goal 2025-01-22: re-write this stupid app so that it only requires one thing: either a Pages project with "Pages Functions" (i.e.Workers) which are located in `/functions`, or a single Worker which renders HTML on the server.
+
+Unfortunately both are absurdly challenging with Workers. Trying to use common JS templating libraries in Workers causes all sorts of problems. I don't know why, the runtime just hates the way they are written. And ditto if you try to include common Node packages in your Pages functions. When your root project is a Pages project, it doesn't seem like there is a way to enable node compatibility node, which means a ton of libraries are broken because they don't use the newer `node:package` namespace for imports.
+
+It's pretty annoying actually, and I'm tempted to just leave it alone since it "works". It's just a bad system IMO because it's goddamn simple as hell and yet somehow it's broken.
