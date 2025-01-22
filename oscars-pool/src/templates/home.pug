@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Oscars Viewing Party
+    include partials/head.pug
+  body
+    h1 Oscars Viewing Party!
+    form(method="POST" action="/find-or-create-room")
+      label.margin-bottom
+        | Join or create a room
+        input(type="text" name="roomId" v-model="roomId")
+      button(type="submit") Go!
+    br
+    hr
+    h2 Tips 'n tricks
+    ul
+      li Create a room to compare predictions with your friends
+      li Submit your Oscars predictions, and see how many you got right! Results will be updated live during the Oscars
+      li You can join multiple rooms, but its janky so you have to use Incognito or Private windows
+      li
+        | This app is 
+        em
+          strong extremely insecure
+        | . Please only enter information that you want publicly available.

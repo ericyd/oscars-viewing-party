@@ -12,3 +12,6 @@ atlas.hcl
 dist
 dist-ssr
 .vscode
+
+oscars-pool/src/templates/*.js
+oscars-pool/src/templates/partials/*.js

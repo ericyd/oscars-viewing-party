@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title #{person}'s Predictions
+    include partials/head.pug
+  body
+    h1 #{person}'s predictions
+
+    | (👑 = winner, ✅ = correct prediction, ❌ = wrong prediction, ⭕️ = predicted but no winner yet)
+
+    each item in list
+      h2.meta-category #{item.meta_category}
+      each c in item.categories
+        h3 #{c.category}
+        each n in c.nominees
+          .flex.margin-bottom
+            .width-2.flex.items-center
+              if n.winning_nominee_id
+                if n.winning_nominee_id === n.nominee_id
+                  | 👑
+                if n.winning_nominee_id === n.prediction_nominee_id
+                  | ✅
+                else if n.prediction_nominee_id === n.nominee_id
+                  | ❌
+              else if n.prediction_nominee_id
+                | ⭕️
+            .flex.column.max-width-80
+              | #{n.nominee}
+              strong.block.small #{n.artwork}

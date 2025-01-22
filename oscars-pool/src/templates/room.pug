@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    title Welcome to room #{roomId}
+    include partials/head.pug
+    script.
+      document.addEventListener('DOMContentLoaded', () => {
+        const userId = '#{userId}';
+        const roomId = '#{roomId}';
+        const name = '#{name}';
+        if (userId) {
+          localStorage.setItem('oscars-viewing-party-userId', userId);
+        }
+        if (roomId) {
+          localStorage.setItem('oscars-viewing-party-roomId', roomId);
+        }
+        if (name) {
+          localStorage.setItem('oscars-viewing-party-name', name);
+        }
+      });
+  body
+    h1
+      | Welcome to room #{roomId}
+      if name
+        | , #{name}
+    .margin-bottom
+      if error
+        p.error #{error}
+      if userId
+        a.button(href="/predictions/2024") My Predictions
+      else
+        form(method="POST" action=`/room/${roomId}/join`)
+          label
+            | Display name
+            input(type="text" name="name" id="displayName" v-model="nameInput")
+          label.margin-bottom
+            | Username (use something identifiable to you)
+            input(type="text" name="username" id="username" v-model="usernameInput")
+          button(type="submit") Join room
+
+    div Click someone's name to see their predictions
+    div ✅ = correct predictions
+    div ❌ = wrong predictions
+    div ⭕️ = predictions with no winner yet
+
+    ul.people
+      each person in people
+        li
+          a(href=`/${roomId}/person/${person.id}`)
+            | #{person.name}
+            br
+            small
+              | #{person.total_predictions} predictions, #{person.correct} ✅, #{person.wrong} ❌, #{person.undecided} ⭕️

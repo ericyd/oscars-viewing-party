@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title Admin View
+    include partials/head.pug
+  body
+    h1 Admin View
+    form(method="POST" action=`/winner/${year}`)
+      input(type="hidden" name="year" value=year)
+      each category in nominees
+        h2= category.meta_category
+        h3= category.category
+        each nominee in category.nominees
+          div
+            input(type="radio" name=`winner-${category.category_id}` value=nominee.nominee_id id=`nominee-${nominee.nominee_id}`)
+            label(for=`nominee-${nominee.nominee_id}`)= nominee.nominee
+            img(src=nominee.artwork alt=nominee.nominee)
+      button(type="submit") Submit Winners

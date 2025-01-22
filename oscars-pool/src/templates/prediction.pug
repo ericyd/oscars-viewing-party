@@ -1,0 +1,71 @@
+doctype html
+html
+  head
+    title Make your predictions
+    include partials/head.pug
+    script.
+      document.addEventListener('DOMContentLoaded', () => {
+        const status = {};
+
+        async function handleSubmit(categoryId) {
+          const userId = localStorage.getItem('oscars-viewing-party-userId');
+          const year = '#{year}';
+          const nomineeId = document.querySelector(`input[name="${categoryId}"]:checked`).value;
+          const body = {
+            userId,
+            categoryId,
+            nomineeId,
+          };
+          try {
+            const response = await fetch(`/prediction/${year}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(body),
+            });
+            const json = await response.json();
+            if (!response.ok) {
+              throw new Error(json.message);
+            }
+            status[categoryId] = 'Saved! ✅';
+          } catch (e) {
+            status[categoryId] = 'You broke something 😿';
+          }
+          document.querySelector(`#status-${categoryId}`).innerText = status[categoryId];
+        }
+
+        document.querySelectorAll('form').forEach(form => {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const categoryId = e.target.dataset.categoryId;
+            handleSubmit(categoryId);
+          });
+        });
+      });
+  body
+    h1 Make your predictions
+
+    a.block.margin-bottom(href=`/${roomId}`) Back to room #{roomId}
+
+    each item in list
+      h2.meta-category #{item.meta_category}
+      each c in item.categories
+        h3 #{c.category}
+        form.margin-bottom(data-category-id=c.category_id)
+          each n in c.nominees
+            .flex.margin-bottom
+              .width-2.flex.items-center
+                input(
+                  type="radio"
+                  name=n.category_id
+                  value=n.nominee_id
+                  id=`${n.category_id}_${n.nominee_id}`
+                  checked=n.prediction_nominee_id === n.nominee_id ? 'checked' : undefined
+                )
+              .flex.items-center.max-width-80
+                label(for=`${n.category_id}_${n.nominee_id}`)
+                  | #{n.nominee}
+                  strong.block.small #{n.artwork}
+          div(id=`status-#{c.category_id}`)
+    a.block.margin-bottom(href=`/${roomId}`) Back to room #{roomId}
