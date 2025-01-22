@@ -8,10 +8,12 @@ import { getCategories } from './routes/get-categories';
 import { upsertPredictions } from './routes/upsert-predictions';
 import { declareWinner } from './routes/declare-winner';
 import { upsertPrediction } from './routes/upsert-prediction';
+import { home } from './routes/home';
 
 // now let's create a router (note the lack of "new")
 const router = Router();
 
+router.get('/', home);
 router.get('/api/categories', getCategories);
 router.get('/api/all-nominees/:year', getAllNominees);
 router.get('/api/nominees/:year', getNominees);
