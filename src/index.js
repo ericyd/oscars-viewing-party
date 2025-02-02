@@ -1,15 +1,15 @@
 import { Router } from 'itty-router';
-import { getAllNominees } from './routes/get-all-nominees';
-// import { getRoom } from './routes/get-room';
-import { joinRoom } from './routes/join-room';
-import { getNominees } from './routes/get-nominees';
-import { getUserPredictions } from './routes/get-user-predictions';
-import { getCategories } from './routes/get-categories';
-import { upsertPredictions } from './routes/upsert-predictions';
-import { declareWinner } from './routes/declare-winner';
-import { upsertPrediction } from './routes/upsert-prediction';
-import { home } from './routes/home';
-import { findOrCreateRoom } from './routes/find-or-create-room';
+import { getAllNominees } from './routes/get-all-nominees.js';
+// import { getRoom } from './routes/get-room.js';
+import { joinRoom } from './routes/join-room.js';
+import { getNominees } from './routes/get-nominees.js';
+import { getUserPredictions } from './routes/get-user-predictions.js';
+import { getCategories } from './routes/get-categories.js';
+import { upsertPredictions } from './routes/upsert-predictions.js';
+import { declareWinner } from './routes/declare-winner.js';
+import { upsertPrediction } from './routes/upsert-prediction.js';
+import { home } from './routes/home.js';
+import { findOrCreateRoom } from './routes/find-or-create-room.js';
 
 // now let's create a router (note the lack of "new")
 const router = Router();

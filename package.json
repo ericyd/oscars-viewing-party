@@ -5,8 +5,8 @@
   "description": "An experiment to see if I can make a quick/easy voting app.",
   "main": "index.js",
   "scripts": {
-    "express": "node ./express/bin/www.js",
     "deploy": "wrangler deploy",
+    "build:dev": "vike build",
     "dev": "wrangler dev",
     "start": "wrangler dev",
     "format": "prettier --write .",
@@ -32,14 +32,19 @@
     "morgan": "~1.9.1",
     "pg": "^8.11.3",
     "pug": "^3.0.3",
+    "vike": "^0.4.220",
+    "vike-vue": "^0.8.6",
     "vue": "^3.4.15",
-    "vue-router": "^4.2.5"
+    "vue-loader": "^17.4.2",
+    "vue-router": "^4.2.5",
+    "webpack": "^5.97.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
     "itty-router": "^3.0.12",
     "prettier": "^3.2.5",
     "vite": "^5.0.11",
+    "webpack-cli": "^6.0.1",
     "wrangler": "^3.28.3"
   }
 }

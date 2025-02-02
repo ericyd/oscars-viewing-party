@@ -1,7 +1,13 @@
 name = "oscars-pool"
-main = "oscars-pool/src/index.js"
+main = "./src/index.js"
 compatibility_date = "2024-01-29"
 node_compat = true
+# type = "javascript" is required to use the `[build]` section
+type = "javascript"
 
 [dev]
 port = 8345
+
+[build]
+#command = "npm run build:dev"
+command = "npx webpack"

@@ -1,5 +1,5 @@
-import { dbQuery } from '../db';
-import { groupCategories } from '../util/group-categories';
+import { dbQuery } from '../db.js';
+import { groupCategories } from '../util/group-categories.js';
 
 export async function getCategories(_request, env, ctx) {
   try {

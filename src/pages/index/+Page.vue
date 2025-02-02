@@ -1,11 +1,12 @@
 <script setup>
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 
 const roomId = defineModel();
-const router = useRouter();
+// const router = useRouter();
 function handleSubmit(e) {
   const path = roomId.value.replace(/[^a-zA-Z0-9]/g, '-');
-  router.push(`/${path}`);
+  console.log('handleSubmit', path, e)
+  // router.push(`/${path}`);
 }
 </script>
 

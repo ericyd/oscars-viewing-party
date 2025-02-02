@@ -1,4 +1,5 @@
-import { Client } from 'pg';
+import * as pg from 'pg';
+const { Client } = pg;
 
 export async function dbQuery(env, ctx, query, values = []) {
   const client = new Client({ connectionString: env.DB_URL });
