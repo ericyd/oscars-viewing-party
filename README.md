@@ -4,7 +4,7 @@ A quick/easy app to store Oscars predictions.
 
 This app is all about "good enough". It is not secure and that's fine. The whole point is just to make predictions for a silly awards ceremony and compare with your friends.
 
-Hosted at https://oscars-pool.pages.dev
+<!-- Hosted at https://oscars-pool.pages.dev -->
 
 ## Prerequisites
 
